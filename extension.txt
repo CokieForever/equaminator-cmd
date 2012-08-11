@@ -1,0 +1,17 @@
+prmv := (f,y,x) -> z -> integ(f,x,z)+y
+solve := (f,y,a,b) -> zero(x->f:(x)-y,a,b)
+
+arccos := acos
+arcsin := asin
+arctan := atan
+trunc := int
+floor := intg
+ch := cosh
+sh := sinh
+th := tanh
+argsh := asinh
+argch := acosh
+argth := atanh
+
+log := x -> ln(x)/ln(10)
+
