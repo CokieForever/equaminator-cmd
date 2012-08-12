@@ -299,7 +299,7 @@ void LibererObjet(Objet* a)
         LibererObjet(&estim);
     }
 
-    if (a->type != VIDE && a->data)
+    if (a->type != VIDE && a->size > 0 && a->data)
         free(a->data);
     if (a->type != VIDE && a->description)
         free(a->description);
@@ -486,7 +486,7 @@ Matrice CreerMatrice(unsigned int l, unsigned int c)
             {
                 mat.matrice[i][j].type = VIDE;
                 mat.matrice[i][j].data = NULL;
-                mat.matrice[i][j].size =0 ;
+                mat.matrice[i][j].size = 0 ;
                 mat.matrice[i][j].description = NULL;
             }
         }

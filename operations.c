@@ -615,7 +615,10 @@ Objet MultMatrices(Objet a, Objet b)
                 tmp = Mult(mat1[i][k], mat2[k][j]);
                 tmp2 = matR.matrice[i][j];
                 matR.matrice[i][j] = Add(tmp2, tmp);
+                if (matR.matrice[i][j].description)
+                    SprintObjet(matR.matrice[i][j].description, matR.matrice[i][j]);
 
+                tmp2.type = tmp.type;
                 LibererObjet(&tmp);
                 LibererObjet(&tmp2);
                 if (matR.matrice[i][j].type == ERREUR)
@@ -1100,20 +1103,26 @@ Objet Puiss(Objet a, Objet b)
         }
         case MATRICE:
         {
-            if (b.type != COMPLEXE || !EstNul(Im(b)) || !EstEntier(Re(b)))
+            if (b.type != COMPLEXE || !EstNul(Im(b)) || !EstEntier(Re(b)) || ColMat(a) != LignesMat(a))
                 return ErreurExt("Impossible de calculer la puissance", buf);
             if (Re(b) == 0)
-                return CreerComplexe(1,0,NULL,buf);
+            {
+                obj = MatIdentite(ColMat(a));
+                if (obj.description)
+                    strncpy(obj.description, buf, MAX_EXPR-1);
+                return obj;
+            }
             if (Re(b) < 0)
-                a = Inv(a, a);
+                obj = Inv(a, a);
+            else obj = CopierObjet(a);
 
-            obj = a;
             for (i=1 ; i<abs(Re(b)) && obj.type != ERREUR ; i++)
             {
-                obj2 = Mult(obj, obj);
-                if (i>1)
-                    LibererObjet(&obj);
+                obj2 = Mult(obj, a);
+                LibererObjet(&obj);
                 obj = obj2;
+                if (obj.description)
+                    strncpy(obj.description, buf, MAX_EXPR-1);
             }
 
             return obj;

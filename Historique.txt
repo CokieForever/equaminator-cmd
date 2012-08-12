@@ -1,0 +1,10 @@
+﻿11/08/2012
+
+Released v1.0
+
+
+12/08/2012
+
+Correction de fonction puissance de matrices, erronée.
+Correction d'un problème dans les fonctions puissance et multiplication qui causait une erreur de segmentation par overflow du buffer. Ce problème peut encore se manifester ailleurs.
+Released v1.0.1

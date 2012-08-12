@@ -722,12 +722,12 @@ int SprintObjet(char buf[], Objet obj)
             sprintf(buf, "Matrice %dx%d", LignesMat(obj), ColMat(obj));
             break;
         case BOOLEEN:
-            strcpy(buf, ValBool(obj)?"VRAI":"FAUX");
+            strncpy(buf, ValBool(obj)?"VRAI":"FAUX", MAX_EXPR-1);
             break;
         case TEXTE:
             if (obj.data)
-                AfficherObjet(TexteEstim(obj));
-            else printf("~ %s", TexteObj(obj));
+                SprintObjet(buf, TexteEstim(obj));
+            else strncpy(buf, "Texte", MAX_EXPR-1);
             return 1;
         default:
             strncpy(buf, "Inconnu", MAX_EXPR-1);
