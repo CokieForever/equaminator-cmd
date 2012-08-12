@@ -1321,43 +1321,43 @@ Objet OpCentralComp(Objet a, Objet b, int(*fonction)(double,double), const char 
 
 
 //Compare les objets passés ; renvoie un objet booléen VRAI si a > b, FAUX sinon
+int Fn_SupStrict(double nb1, double nb2)
+{
+    return !EstNul(nb1-nb2) && nb1 > nb2;
+}
 Objet SupStrict(Objet a, Objet b)
 {
-    int fonction(double nb1, double nb2)
-    {
-        return !EstNul(nb1-nb2) && nb1 > nb2;
-    }
-    return OpCentralComp(a, b, fonction, ">");
+    return OpCentralComp(a, b, Fn_SupStrict, ">");
 }
 
 //Compare les objets passés ; renvoie un objet booléen VRAI si a >= b, FAUX sinon
+int Fn_SupEgal(double nb1, double nb2)
+{
+    return EstNul(nb1-nb2) || nb1 >= nb2;
+}
 Objet SupEgal(Objet a, Objet b)
 {
-    int fonction(double nb1, double nb2)
-    {
-        return EstNul(nb1-nb2) || nb1 >= nb2;
-    }
-    return OpCentralComp(a, b, fonction, ">=");
+    return OpCentralComp(a, b, Fn_SupEgal, ">=");
 }
 
 //Compare les objets passés ; renvoie un objet booléen VRAI si a < b, FAUX sinon
+int Fn_InfStrict(double nb1, double nb2)
+{
+    return !EstNul(nb1-nb2) && nb1 < nb2;
+}
 Objet InfStrict(Objet a, Objet b)
 {
-    int fonction(double nb1, double nb2)
-    {
-        return !EstNul(nb1-nb2) && nb1 < nb2;
-    }
-    return OpCentralComp(a, b, fonction, "<");
+    return OpCentralComp(a, b, Fn_InfStrict, "<");
 }
 
 //Compare les objets passés ; renvoie un objet booléen VRAI si a <= b, FAUX sinon
+int Fn_InfEgal(double nb1, double nb2)
+{
+    return EstNul(nb1-nb2) || nb1 <= nb2;
+}
 Objet InfEgal(Objet a, Objet b)
 {
-    int fonction(double nb1, double nb2)
-    {
-        return EstNul(nb1-nb2) || nb1 <= nb2;
-    }
-    return OpCentralComp(a, b, fonction, "<=");
+    return OpCentralComp(a, b, Fn_InfEgal, "<=");
 }
 
 Objet Egal(Objet a, Objet b)

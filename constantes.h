@@ -28,15 +28,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <math.h>
 #include <ctype.h>
 
+#ifndef NO_MEMMGR
 #define MEMMGR_PRINT_WARNINGS
 #include "memmgr.h"   //Commentez cette ligne pour désactiver le Memory Manager
-
+#endif
 
 //Choix de l'OS
+#define AUTO       0
 #define WINDOWS    1
 #define LINUX      2
+#define MAC        2
 
-#define OS         WINDOWS    //Changez la valeur !
+#define OS         AUTO    //Changez la valeur !
+
+#if (OS == AUTO)
+#undef OS
+#ifdef _WIN32
+#define OS WINDOWS
+#else
+#define OS LINUX
+#endif
+#endif //OS==AUTO
+
 
 //Constantes utiles
 #define MAX_EXPR                1000

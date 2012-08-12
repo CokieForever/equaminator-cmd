@@ -28,7 +28,7 @@ int main(void)
     int done = 0;
 
     printf(" -----------------\n| EQUAMINATOR CMD |\n -----------------\n\n");
-    printf("Auteur :\tCokie\nVersion :\t1.0.1 beta\nMise a jour :\t11/08/2012\n");
+    printf("Auteur :\tCokie\nVersion :\t1.0.2 beta\nMise a jour :\t11/08/2012\n");
     printf("License :\tGNU GPL version 2.0\n\t\thttp://www.gnu.org/licenses/gpl-2.0.html\n\n\n");
     printf("Initialisation... ");
 

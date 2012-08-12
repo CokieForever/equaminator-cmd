@@ -52,9 +52,9 @@ void MEMMGR_free(void* p, int print, unsigned int numLine, const char fileName[]
     for (i=0 ; i<nbMemZones ; i++)
     {
         void* pBegin = zoneBegin(tabMemZones[i]);
-        if (pBegin < p && p < pBegin + zoneSize(tabMemZones[i]))
+        if ((char*)pBegin < (char*)p && (char*)p < (char*)pBegin + zoneSize(tabMemZones[i]))
         {
-            zoneSize(tabMemZones[i]) = p - pBegin;
+            zoneSize(tabMemZones[i]) = (char*)p - (char*)pBegin;
             ok = 1;
         }
         else if (pBegin == p)
@@ -107,7 +107,7 @@ int MEMMGR_isPointerOK(void* p)
     for (i=0 ; i<nbMemZones ; i++)
     {
         void* pBegin = zoneBegin(tabMemZones[i]);
-        if (pBegin <= p && p < pBegin + zoneSize(tabMemZones[i]))
+        if ((char*)(pBegin) <= (char*)(p) && (char*)(p) < (char*)(pBegin) + zoneSize(tabMemZones[i]))
             ok = 1;
     }
 

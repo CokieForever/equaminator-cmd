@@ -1,46 +1,46 @@
-Equaminator CMD - Un parseur mathématique avec interface en ligne de commande.
+ï»¿Equaminator CMD - Un parseur mathÃ©matique avec interface en ligne de commande.
 
 
 *** INFORMATIONS GENERALES ***
 
 Auteur : Cokie
-Version : 1.0.1 bêta
-Dernière mise à jour : 11/08/2012
-Plateformes : Windows, théoriquement Linux, Mac (non testé)
+Version : 1.0.2 bÃªta
+DerniÃ¨re mise Ã  jour : 11/08/2012
+Plateformes : Windows, thÃ©oriquement Linux, Mac (non testÃ©)
 License : GNU GPL v2.0 (voir le fichier LICENSE.txt pour plus d'informations)
-Pour toute demande d'information, remarque, suggestion, etc., contactez-moi à l'adresse "cokie.forever@gmail.com".
+Pour toute demande d'information, remarque, suggestion, etc., contactez-moi Ã  l'adresse "cokie.forever@gmail.com".
 
 
 *** DESCRIPTION RAPIDE ***
 
-Equaminator CMD est, globalement, une grosse calculatrice en console. Il permet d'analyser syntaxiquement des chaînes de caractères afin de les interpréter pour en tirer des calculs d'ordre mathématique, qu'il effectue ensuite. Comme tout analyseur syntaxique, il demande une forte rigueur dans la syntaxe des expressions qu'on lui soumet, toutefois, cette syntaxe étant globalement la même que celle des expressions mathématiques courantes, il est aisé à prendre en main. Vous pouvez utiliser seulement le moteur d'analyse pour vos programmes, ou utiliser également l'interface afin de s'en servir comme calculatrice.
+Equaminator CMD est, globalement, une grosse calculatrice en console. Il permet d'analyser syntaxiquement des chaÃ®nes de caractÃ¨res afin de les interprÃ©ter pour en tirer des calculs d'ordre mathÃ©matique, qu'il effectue ensuite. Comme tout analyseur syntaxique, il demande une forte rigueur dans la syntaxe des expressions qu'on lui soumet, toutefois, cette syntaxe Ã©tant globalement la mÃªme que celle des expressions mathÃ©matiques courantes, il est aisÃ© Ã  prendre en main. Vous pouvez utiliser seulement le moteur d'analyse pour vos programmes, ou utiliser Ã©galement l'interface afin de s'en servir comme calculatrice.
 
 
 *** UTILISATION ***
 
-Le programme est compilé pour Windows, l'exécutable se trouve dans le dossier principal sous le nom "EquaCMD.exe". Lancez-le, et lorsqu'il est prêt, vous pourrez entrer vos instructions. Commencez par l'instruction "help"... ;)
+Le programme est compilÃ© pour Windows, l'exÃ©cutable se trouve dans le dossier principal sous le nom "EquaCMD.exe". Lancez-le, et lorsqu'il est prÃªt, vous pourrez entrer vos instructions. Commencez par l'instruction "help"... ;)
 
-Le moteur se base sur deux choses : les Objets et les Opérateurs.
+Le moteur se base sur deux choses : les Objets et les OpÃ©rateurs.
 
-Un Objet, cela peut être un nombre complexe, une fonction, une matrice (d'Objets), un n-uplet (d'Objets), ou un booléen. La liste des Objets pré-enregistrés (notamment des fonctions) est accessible à l'aide de l'instruction "varlist".
-	Les Objets les plus simples sont les complexes. Tapez "12", et l'expression sera interprétée comme l'Objet de type complexe de partie réelle 12 et de partie imaginaire 0, soit, le réel 12. Pour spécifier la partie imaginaire, utilisez l'Objet pré-enregistré "i", complexe de partie réelle nulle et de partie imaginaire égale à 1. Par exemple, "1+2*i".
-	Les fonctions peuvent être créées à l'aide de l'Opérateur de création de fonction "->" (voir ci-dessous). Par exemple, l'expression "x->x+1" sera interprétée comme l'Objet de type fonction qui à tout Objet x associe l'Objet x incrémenté de 1. Pour crééer des fonctions de plusieurs variables, utilisez la syntaxe suivante : "(x,y)->x+y" créée par exemple la fonction qui à deux Objets x et y associe la somme de ces deux Objets. Pour évaluer une fonction en un point, utilisez l'Opérateur d'évaluation ":" (voir ci-dessous) avec à gauche la fonction à évaluer et à droite le point (éventuellement n-uplet si la fonction a plusieurs variables) en lequel évaluer la fonction.
-	Les matrices utilisent la syntaxe suivante : "[[1,2][3,4][5,6]]" sera interprétée comme la matrice 3x2 (3 lignes, 2 colonnes) contenant les réels 1, 2, 3, 4, 5 et 6 dans l'ordre, de gauche à droite et de haut en bas. Tout Objet peut être mis dans une matrice, y compris une autre matrice, et tous les Objets ne sont pas forcés d'être du même type. Pour récupérer l'élément (i,j) d'une matrice, utilisez l'Opérateur d'évaluation ":" (voir ci-dessous) avec à gauche la matrice et à droite le 2-uplet (i,j).
-	Les n-uplets sont créées à l'aide de la syntaxe suivante : "(1,2,3,4)" créée le 4-uplet contenant les réels 1, 2, 3 et 4 dans l'ordre. Tout Objet peut être mis dans un n-uplet, y compris un autre n-uplet, et tous les Objets ne sont pas forcés d'être du même type. Pour récupérer le k-ième élément d'un n-uplet, utilisez l'Opérateur d'évaluation ":" (voir ci-dessous) avec à gauche le n-uplet et à droite l'entier k.
-	Enfin, les booléens sont les plus simples, ils sont tous les deux définis comme Objets pré-enregistrés : "VRAI" et "FAUX".
+Un Objet, cela peut Ãªtre un nombre complexe, une fonction, une matrice (d'Objets), un n-uplet (d'Objets), ou un boolÃ©en. La liste des Objets prÃ©-enregistrÃ©s (notamment des fonctions) est accessible Ã  l'aide de l'instruction "varlist".
+	Les Objets les plus simples sont les complexes. Tapez "12", et l'expression sera interprÃ©tÃ©e comme l'Objet de type complexe de partie rÃ©elle 12 et de partie imaginaire 0, soit, le rÃ©el 12. Pour spÃ©cifier la partie imaginaire, utilisez l'Objet prÃ©-enregistrÃ© "i", complexe de partie rÃ©elle nulle et de partie imaginaire Ã©gale Ã  1. Par exemple, "1+2*i".
+	Les fonctions peuvent Ãªtre crÃ©Ã©es Ã  l'aide de l'OpÃ©rateur de crÃ©ation de fonction "->" (voir ci-dessous). Par exemple, l'expression "x->x+1" sera interprÃ©tÃ©e comme l'Objet de type fonction qui Ã  tout Objet x associe l'Objet x incrÃ©mentÃ© de 1. Pour crÃ©Ã©er des fonctions de plusieurs variables, utilisez la syntaxe suivante : "(x,y)->x+y" crÃ©Ã©e par exemple la fonction qui Ã  deux Objets x et y associe la somme de ces deux Objets. Pour Ã©valuer une fonction en un point, utilisez l'OpÃ©rateur d'Ã©valuation ":" (voir ci-dessous) avec Ã  gauche la fonction Ã  Ã©valuer et Ã  droite le point (Ã©ventuellement n-uplet si la fonction a plusieurs variables) en lequel Ã©valuer la fonction.
+	Les matrices utilisent la syntaxe suivante : "[[1,2][3,4][5,6]]" sera interprÃ©tÃ©e comme la matrice 3x2 (3 lignes, 2 colonnes) contenant les rÃ©els 1, 2, 3, 4, 5 et 6 dans l'ordre, de gauche Ã  droite et de haut en bas. Tout Objet peut Ãªtre mis dans une matrice, y compris une autre matrice, et tous les Objets ne sont pas forcÃ©s d'Ãªtre du mÃªme type. Pour rÃ©cupÃ©rer l'Ã©lÃ©ment (i,j) d'une matrice, utilisez l'OpÃ©rateur d'Ã©valuation ":" (voir ci-dessous) avec Ã  gauche la matrice et Ã  droite le 2-uplet (i,j).
+	Les n-uplets sont crÃ©Ã©es Ã  l'aide de la syntaxe suivante : "(1,2,3,4)" crÃ©Ã©e le 4-uplet contenant les rÃ©els 1, 2, 3 et 4 dans l'ordre. Tout Objet peut Ãªtre mis dans un n-uplet, y compris un autre n-uplet, et tous les Objets ne sont pas forcÃ©s d'Ãªtre du mÃªme type. Pour rÃ©cupÃ©rer le k-iÃ¨me Ã©lÃ©ment d'un n-uplet, utilisez l'OpÃ©rateur d'Ã©valuation ":" (voir ci-dessous) avec Ã  gauche le n-uplet et Ã  droite l'entier k.
+	Enfin, les boolÃ©ens sont les plus simples, ils sont tous les deux dÃ©finis comme Objets prÃ©-enregistrÃ©s : "VRAI" et "FAUX".
 
-Un Opérateur est quand à lui capable de créer un Objet à partir d'un ou plusieurs autres Objets, selon un comportement spécifique. Un exemple simple : l'Opérateur "+" peut additionner deux Objets, autrement dit, il peut créer un Objet (la somme) à partir de deux autres. La liste des Opérateurs est disponible en tapant l'instruction "oplist".
-	Les Opérateurs ont tous une priorité déterminée : par exemple, la priorité de l'Opérateur de multiplication "*" est supérieure à celle de l'Opérateur d'addition "+", ce qui fait que l'expression "2+3*4" sera interprétée comme "2+(3*4)", soit le réel 14, plutôt que "(2+3)*4", soit le réel 20.
-	L'Opérateur ":" est particulier, il peut être implicite. C'est l'Opérateur d'évaluation. Par exemple, il peut servir à évaluer une fonction en un complexe (voir ci-dessus) : "cos:(0)". La possibilité de le rendre implicite autorise à écrire "cos(0)" pour le même résultat.
-	Certains Opérateurs demandent non pas un Objet en entrée, mais du Texte simple, à droite, à gauche, ou des deux côtés. C'est le cas, par exemple, de l'Opérateur de création de fonction "->". Il demande du Texte à droite et à gauche, de sorte que, si vous entrez "x->2*x", bien que ni "x" ni "2*x" ne puissent être interprétées comme des Objets valides, la fonction sera tout de même créée.
-	Enfin, certains Opérateurs ont un effet de bord : en plus de renvoyer un résultat, ils ont un effet interne. Par exemple, l'Opérateur de création de constante ":=" renverra la valeur de la constante créée mais l'enregistrera également comme Objet permanent.
+Un OpÃ©rateur est quand Ã  lui capable de crÃ©er un Objet Ã  partir d'un ou plusieurs autres Objets, selon un comportement spÃ©cifique. Un exemple simple : l'OpÃ©rateur "+" peut additionner deux Objets, autrement dit, il peut crÃ©er un Objet (la somme) Ã  partir de deux autres. La liste des OpÃ©rateurs est disponible en tapant l'instruction "oplist".
+	Les OpÃ©rateurs ont tous une prioritÃ© dÃ©terminÃ©e : par exemple, la prioritÃ© de l'OpÃ©rateur de multiplication "*" est supÃ©rieure Ã  celle de l'OpÃ©rateur d'addition "+", ce qui fait que l'expression "2+3*4" sera interprÃ©tÃ©e comme "2+(3*4)", soit le rÃ©el 14, plutÃ´t que "(2+3)*4", soit le rÃ©el 20.
+	L'OpÃ©rateur ":" est particulier, il peut Ãªtre implicite. C'est l'OpÃ©rateur d'Ã©valuation. Par exemple, il peut servir Ã  Ã©valuer une fonction en un complexe (voir ci-dessus) : "cos:(0)". La possibilitÃ© de le rendre implicite autorise Ã  Ã©crire "cos(0)" pour le mÃªme rÃ©sultat.
+	Certains OpÃ©rateurs demandent non pas un Objet en entrÃ©e, mais du Texte simple, Ã  droite, Ã  gauche, ou des deux cÃ´tÃ©s. C'est le cas, par exemple, de l'OpÃ©rateur de crÃ©ation de fonction "->". Il demande du Texte Ã  droite et Ã  gauche, de sorte que, si vous entrez "x->2*x", bien que ni "x" ni "2*x" ne puissent Ãªtre interprÃ©tÃ©es comme des Objets valides, la fonction sera tout de mÃªme crÃ©Ã©e.
+	Enfin, certains OpÃ©rateurs ont un effet de bord : en plus de renvoyer un rÃ©sultat, ils ont un effet interne. Par exemple, l'OpÃ©rateur de crÃ©ation de constante ":=" renverra la valeur de la constante crÃ©Ã©e mais l'enregistrera Ã©galement comme Objet permanent.
 
-Les expressions que vous envoyez au moteur peuvent contenir des espaces n'importe où, ils seront supprimés au traitement. "1  23 2" sera ainsi interprétée comme le réel 1232.
+Les expressions que vous envoyez au moteur peuvent contenir des espaces n'importe oÃ¹, ils seront supprimÃ©s au traitement. "1  23 2" sera ainsi interprÃ©tÃ©e comme le rÃ©el 1232.
 
-L'interface utilise de plus des Commandes pour gérer le moteur. La liste des Commandes disponibles peut être obtenue en tapant la Commande "help".
-Certaines Commandes prennent un argument, parfois facultatif. L'argument se place alors après le nom de la Commande, séparé de celui-ci par un seul espace. Par exemple, "varlist cos" appelle la Commande "varlist" avec l'argument "cos".
+L'interface utilise de plus des Commandes pour gÃ©rer le moteur. La liste des Commandes disponibles peut Ãªtre obtenue en tapant la Commande "help".
+Certaines Commandes prennent un argument, parfois facultatif. L'argument se place alors aprÃ¨s le nom de la Commande, sÃ©parÃ© de celui-ci par un seul espace. Par exemple, "varlist cos" appelle la Commande "varlist" avec l'argument "cos".
 
 
 *** OBJECTIF ***
 
-Le programme n'a pas été créé pour la vitesse mais pour la réutilisabilité. En effet, il est aisé, si l'on dispose de connaissances suffisantes en langage C, de créer de nouveaux Opérateurs ou Objets ou de modifier ceux définis. C'est pourquoi, le logiciel est sous license GNU GPL, qui permet globalement la modification et la rediffusion libre.
+Le programme n'a pas Ã©tÃ© crÃ©Ã© pour la vitesse mais pour la rÃ©utilisabilitÃ©. En effet, il est aisÃ©, si l'on dispose de connaissances suffisantes en langage C, de crÃ©er de nouveaux OpÃ©rateurs ou Objets ou de modifier ceux dÃ©finis. C'est pourquoi, le logiciel est sous license GNU GPL, qui permet globalement la modification et la rediffusion libre.

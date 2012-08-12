@@ -10,3 +10,9 @@ Correction d'un problème dans les fonctions puissance et multiplication qui cau
 Remplacement de tous les appels à sprintf par des appels à snprintf pour éviter une manifestation du problème ailleurs.
 Ajout de la constante e = exp(1) soit environ 2.71828182845904523536028747135266249776.
 Released v1.0.1
+
+
+13/08/2012
+
+Correction de warnings : plus de warnings en mode C99 (-std=c99) et les options de compilation suivantes : -Wall -Wextra -pedantic -Wmain -Wunreachable-code -Wwrite-strings -Wstrict-prototypes
+Released v1.0.2

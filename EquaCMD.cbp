@@ -20,9 +20,10 @@
 		<Compiler>
 			<Add option="-Wunreachable-code" />
 			<Add option="-Wmain" />
+			<Add option="-pedantic" />
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
-			<Add option="-Wwrite-strings -Wstrict-prototypes" />
+			<Add option="-Wwrite-strings -Wstrict-prototypes -std=c99" />
 		</Compiler>
 		<Unit filename="commandes.c">
 			<Option compilerVar="CC" />
