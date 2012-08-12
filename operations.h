@@ -67,7 +67,7 @@ Objet OppUplet(Objet a);
 Objet Sous(Objet a, Objet b);
 
 Objet Mult(Objet a, Objet b);
-Objet MultSuites(Objet a, Objet b);;
+Objet MultSuites(Objet a, Objet b);
 Objet MultMatrices(Objet a, Objet b);
 
 Objet ScalMult(Objet a, Objet b);

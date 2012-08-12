@@ -70,11 +70,12 @@ int InitialiserObjets(void)
 
     i=31;
     tabObjets[i] = CreerComplexe(0, 1, "i", "Complexe (Re=0 ; Im=1)");
-    tabObjets[i+1] = CreerComplexe(PI, 0, "pi", "Nombre pi");
-    tabObjets[i+2] = CreerBooleen(VRAI, "VRAI", "Booleen vrai");
-    tabObjets[i+3] = CreerBooleen(FAUX, "FAUX", "Booleen faux");
-    tabObjets[i+4] = CreerComplexe(0, 0, "ans", "Resultat precedent");
-    Ans = &(tabObjets[i+4]);
+    tabObjets[i+1] = CreerComplexe(2.71828182845904523536028747135266249776, 0, "e", "Valeur prise par l'exponentielle en 1");
+    tabObjets[i+2] = CreerComplexe(PI, 0, "pi", "Nombre pi");
+    tabObjets[i+3] = CreerBooleen(VRAI, "VRAI", "Booleen vrai");
+    tabObjets[i+4] = CreerBooleen(FAUX, "FAUX", "Booleen faux");
+    tabObjets[i+5] = CreerComplexe(0, 0, "ans", "Resultat precedent");
+    Ans = &(tabObjets[i+5]);
 
     for (i=0 ; i<MAX_OBJETS ; i++)
         tabObjets[i].special = PERMANENT;

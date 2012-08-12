@@ -8,4 +8,5 @@ Released v1.0
 Correction de fonction puissance de matrices, erronée.
 Correction d'un problème dans les fonctions puissance et multiplication qui causait une erreur de segmentation par overflow du buffer.
 Remplacement de tous les appels à sprintf par des appels à snprintf pour éviter une manifestation du problème ailleurs.
+Ajout de la constante e = exp(1) soit environ 2.71828182845904523536028747135266249776.
 Released v1.0.1
