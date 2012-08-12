@@ -28,7 +28,7 @@ int main(void)
     int done = 0;
 
     printf(" -----------------\n| EQUAMINATOR CMD |\n -----------------\n\n");
-    printf("Auteur :\tCokie\nVersion :\t1.0 beta\nMise a jour :\t11/08/2012\n");
+    printf("Auteur :\tCokie\nVersion :\t1.0.1 beta\nMise a jour :\t11/08/2012\n");
     printf("License :\tGNU GPL version 2.0\n\t\thttp://www.gnu.org/licenses/gpl-2.0.html\n\n\n");
     printf("Initialisation... ");
 
@@ -148,7 +148,7 @@ Objet Calculer(const char expr0[], Objet locVar[])
             if (obj.type == ERREUR)
             {
                 if (chaineErreur[0])
-                    sprintf(chaineErreur, "%s\n# %s", chaineErreur, obj.description);
+                    snprintf(chaineErreur, MAX_EXPR-1, "%s\n# %s", chaineErreur, obj.description);
                 else strncpy(chaineErreur, obj.description, MAX_EXPR-1);
 
                 LibererObjet(&obj);
@@ -186,7 +186,7 @@ int Preparer(char expr[])
             type = TexteEstim(tabObj[i]).type;
         if (type == FONCTION || type == MATRICE || type == UPLET)
         {
-            sprintf(buf, "%s(", tabObj[i].nom);
+            snprintf(buf, MAX_EXPR-1, "%s(", tabObj[i].nom);
             if ( (p=strstr(expr, buf)) )
             {
                 InsererCaractere(expr, p-expr + strlen(tabObj[i].nom), ':');
@@ -233,7 +233,7 @@ Objet ErreurIntFn(const char expr[], const char fichier[], int ligne)
     obj.type = ERREUR;
     obj.description = malloc(sizeof(char)*MAX_EXPR);
     if (obj.description)
-        sprintf(obj.description, "Erreur : \"%s\" (%s, ligne %d)", expr, nom, ligne);
+        snprintf(obj.description, MAX_EXPR-1, "Erreur : \"%s\" (%s, ligne %d)", expr, nom, ligne);
 
     obj.nom[0] = '\0';
     obj.data = NULL;
@@ -248,7 +248,7 @@ Objet ErreurExt(const char expr[], const char expl[])
     obj.type = ERREUR;
     obj.description = malloc(sizeof(char)*MAX_EXPR);
     if (obj.description)
-        sprintf(obj.description, "Erreur : \"%s\"\n\t-> %s", expr, expl);
+        snprintf(obj.description, MAX_EXPR-1, "Erreur : \"%s\"\n\t-> %s", expr, expl);
 
     obj.nom[0] = '\0';
     obj.data = NULL;
@@ -291,7 +291,7 @@ int InsererCaractere(char expr[], unsigned int i, char c)
     expr1[i] = '\0';
     strcpy(expr2, expr+i);
 
-    sprintf(expr, "%s%c%s", expr1, c, expr2);
+    snprintf(expr, MAX_EXPR-1, "%s%c%s", expr1, c, expr2);
     return 1;
 }
 
@@ -710,16 +710,16 @@ int SprintObjet(char buf[], Objet obj)
             break;
         case FONCTION:
             #if (OS == LINUX)
-            sprintf(buf, "%s->%s", VarFn(obj), ExprFn(obj));
+            snprintf(buf, MAX_EXPR-1, "%s->%s", VarFn(obj), ExprFn(obj));
             #else
-            sprintf(buf, "%s%c%s", VarFn(obj), FLECHE, ExprFn(obj));
+            snprintf(buf, MAX_EXPR-1, "%s%c%s", VarFn(obj), FLECHE, ExprFn(obj));
             #endif
             break;
         case UPLET:
-            sprintf(buf, "%d-Uplet", TailleUplet(obj));
+            snprintf(buf, MAX_EXPR-1, "%d-Uplet", TailleUplet(obj));
             break;
         case MATRICE:
-            sprintf(buf, "Matrice %dx%d", LignesMat(obj), ColMat(obj));
+            snprintf(buf, MAX_EXPR-1, "Matrice %dx%d", LignesMat(obj), ColMat(obj));
             break;
         case BOOLEEN:
             strncpy(buf, ValBool(obj)?"VRAI":"FAUX", MAX_EXPR-1);
@@ -740,7 +740,7 @@ int SprintObjet(char buf[], Objet obj)
     if (!IsPermanent(obj) && obj.type != MATRICE && obj.description && obj.description[0] && strlen(obj.description)<strlen(buf))
     {
         if (obj.type == UPLET)
-            sprintf(buf, "(%s)", obj.description);
+            snprintf(buf, MAX_EXPR-1, "(%s)", obj.description);
         else strncpy(buf, obj.description, MAX_EXPR-1);
     }
 
@@ -770,19 +770,19 @@ void SprintComplexe(char buf[], Objet obj)
             strcpy(buf, "i");
         else if (n2[0] == '-' && n2[1] == '1' && !n2[2])
             strcpy(buf, "-i");
-        else sprintf(buf, "%s*i", n2);
+        else snprintf(buf, MAX_EXPR-1, "%s*i", n2);
     }
     else
     {
         if (n2[0] == '-')
         {
             if (n2[1] == '1' && !n2[2])
-                sprintf(buf, "%s-i", n1);
-            else sprintf(buf, "%s%s*i", n1, n2);
+                snprintf(buf, MAX_EXPR-1, "%s-i", n1);
+            else snprintf(buf, MAX_EXPR-1, "%s%s*i", n1, n2);
         }
         else if (n2[0] == '1' && !n2[1])
-            sprintf(buf, "%s+i", n1);
-        else sprintf(buf, "%s+%s*i", n1, n2);
+            snprintf(buf, MAX_EXPR-1, "%s+i", n1);
+        else snprintf(buf, MAX_EXPR-1, "%s+%s*i", n1, n2);
     }
 }
 
@@ -790,7 +790,7 @@ void SprintComplexe(char buf[], Objet obj)
 //Imprime un flottant dans une chaine
 void SprintFloat(char buf[], double num)
 {
-    /*sprintf(buf, "%.20f", num);
+    /*snprintf(buf, MAX_EXPR-1, "%.20f", num);
     return;*/
 
     char n1[50], n2[50], *p;
@@ -805,7 +805,7 @@ void SprintFloat(char buf[], double num)
     string0[PRECISION] = '\0';
     string9[PRECISION] = '\0';
 
-    sprintf(n2, "%.20f", fabs(num)-f);
+    snprintf(n2, MAX_EXPR-1, "%.20f", fabs(num)-f);
     strcpy(n2, n2+2);
 
     if ( (p=strstr(n2, string0)) )
@@ -825,12 +825,12 @@ void SprintFloat(char buf[], double num)
     n2[i+1] = '\0';
 
     if (num>=0 || (!n2[0] && f>-1))
-        sprintf(n1, "%d", f);
-    else sprintf(n1, "-%d", (int)f);
+        snprintf(n1, MAX_EXPR-1, "%d", f);
+    else snprintf(n1, MAX_EXPR-1, "-%d", (int)f);
     //n1[PRECISION+2] = '\0';
 
     if (n2[0])
-        sprintf(buf, "%s.%s", n1, n2);
+        snprintf(buf, MAX_EXPR-1, "%s.%s", n1, n2);
     else strcpy(buf, n1);
 }
 
@@ -926,7 +926,7 @@ void SprintObjetStr(char buf[], Objet obj)
                 obj2 = upl[i];
                 obj2.special = PERMANENT;
                 SprintObjetStr(buf2, obj2);
-                sprintf(buf, "%s%s%c", buf, buf2, i+1<n ? ',' : ')');
+                snprintf(buf, MAX_EXPR-1, "%s%s%c", buf, buf2, i+1<n ? ',' : ')');
             }
             break;
         }
@@ -944,7 +944,7 @@ void SprintObjetStr(char buf[], Objet obj)
                     obj2 = mat[i][j];
                     obj2.special = PERMANENT;
                     SprintObjetStr(buf2, mat[i][j]);
-                    sprintf(buf, "%s%s%c", buf, buf2, j+1<c ? ',' : ']');
+                    snprintf(buf, MAX_EXPR-1, "%s%s%c", buf, buf2, j+1<c ? ',' : ']');
                 }
             }
             strcat(buf, "]");

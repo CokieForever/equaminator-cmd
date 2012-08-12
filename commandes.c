@@ -264,7 +264,7 @@ int Load(const char args[])
     }
 
     nbFichiersOuverts++;
-    sprintf(instrInterdite, "load %s", args);
+    snprintf(instrInterdite, MAX_EXPR-1, "load %s", args);
 
     printf("\n$ Execution des instructions du fichier...\n\n");
     for (i=0 ; i < 50 ; i++)

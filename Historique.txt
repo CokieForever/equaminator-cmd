@@ -6,5 +6,6 @@ Released v1.0
 12/08/2012
 
 Correction de fonction puissance de matrices, erronée.
-Correction d'un problème dans les fonctions puissance et multiplication qui causait une erreur de segmentation par overflow du buffer. Ce problème peut encore se manifester ailleurs.
+Correction d'un problème dans les fonctions puissance et multiplication qui causait une erreur de segmentation par overflow du buffer.
+Remplacement de tous les appels à sprintf par des appels à snprintf pour éviter une manifestation du problème ailleurs.
 Released v1.0.1

@@ -941,7 +941,7 @@ Objet MatIdentite(unsigned int n)
     error.type = VIDE;
     if (n<=0 || n>MAX_MAT)
     {
-        sprintf(buf, "MatIdentite(%d)", n);
+        snprintf(buf, MAX_EXPR-1, "MatIdentite(%d)", n);
         return ErreurExt("Taille de matrice incorrecte",  buf);
     }
 
@@ -964,7 +964,7 @@ Objet MatIdentite(unsigned int n)
 
     if (error.type == VIDE)
     {
-        sprintf(buf, "Matrice identite de taille %d", n);
+        snprintf(buf, MAX_EXPR-1, "Matrice identite de taille %d", n);
         return CreerObjet(MATRICE, NULL, buf, &mat, sizeof(Matrice));
     }
     else
@@ -991,7 +991,7 @@ Objet Exp(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "exp(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "exp(%s)", Descr(a));
 
     if (a.type != COMPLEXE)
         return ErreurExt("Exponentielle : hors domaine", buf);
@@ -1006,7 +1006,7 @@ Objet Sin(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "sin(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "sin(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Sinus : hors domaine", buf);
@@ -1021,7 +1021,7 @@ Objet Cos(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "cos(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "cos(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Cosinus : hors domaine", buf);
@@ -1036,7 +1036,7 @@ Objet Tan(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "tan(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "tan(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Tangente : hors domaine", buf);
@@ -1054,7 +1054,7 @@ Objet Abs(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "abs(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "abs(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Valeur absolue : hors domaine", buf);
@@ -1069,7 +1069,7 @@ Objet Ach(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "ach(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "ach(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Argcosinus : hors domaine", buf);
@@ -1086,7 +1086,7 @@ Objet Acos(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "acos(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "acos(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Arccosinus : hors domaine", buf);
@@ -1103,7 +1103,7 @@ Objet Asin(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "asin(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "asin(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Arcsinus : hors domaine", buf);
@@ -1120,7 +1120,7 @@ Objet Ash(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "asinh(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "asinh(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Argsinus : hors domaine", buf);
@@ -1135,7 +1135,7 @@ Objet Atan(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "atan(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "atan(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Arctangente : hors domaine", buf);
@@ -1150,7 +1150,7 @@ Objet Ath(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "atanh(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "atanh(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Argtangente : hors domaine", buf);
@@ -1167,7 +1167,7 @@ Objet Ceil(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "ceil(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "ceil(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Ceil : hors domaine", buf);
@@ -1182,7 +1182,7 @@ Objet Cosh(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "cosh(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "cosh(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Cosinus hyperbolique : hors domaine", buf);
@@ -1197,7 +1197,7 @@ Objet Frac(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "frac(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "frac(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Frac : hors domaine", buf);
@@ -1212,7 +1212,7 @@ Objet Trunc(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "int(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "int(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Troncature : hors domaine", buf);
@@ -1227,7 +1227,7 @@ Objet Floor(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "intg(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "intg(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Partie entiere : hors domaine", buf);
@@ -1242,7 +1242,7 @@ Objet Round(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "rnd(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "rnd(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Arrondi : hors domaine", buf);
@@ -1257,7 +1257,7 @@ Objet Sinh(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "sinh(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "sinh(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Sinus hyperbolique : hors domaine", buf);
@@ -1272,7 +1272,7 @@ Objet Sqrt(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "sqrt(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "sqrt(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Racine : hors domaine", buf);
@@ -1289,7 +1289,7 @@ Objet Tanh(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "tanh(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "tanh(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Tangente hyperbolique : hors domaine", buf);
@@ -1305,7 +1305,7 @@ Objet Ln(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "ln(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "ln(%s)", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)))
         return ErreurExt("Logarithme neperien : hors domaine", buf);
@@ -1326,7 +1326,7 @@ Objet Norme(Objet a)
     double norm = 0, m;
     Objet* uplet;
 
-    sprintf(buf, "norm(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "norm(%s)", Descr(a));
 
     if (a.type == UPLET)
     {
@@ -1356,7 +1356,7 @@ Objet Det(Objet a)
     unsigned int l, i, j;
     int r;
     Objet **mat, det, det2;
-    sprintf(buf, "det(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "det(%s)", Descr(a));
 
     if ( a.type != MATRICE || ColMat(a) != (l=LignesMat(a)) )
         return ErreurExt("Determinant : hors domaine", buf);
@@ -1434,7 +1434,7 @@ Objet Si(Objet a)
 
     char buf[MAX_EXPR];
     Objet *upl;
-    sprintf(buf, "Si(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "Si(%s)", Descr(a));
 
     if ( a.type != UPLET || TailleUplet(a) != 3 )
         return ErreurExt("Fonction Si : hors domaine", buf);
@@ -1458,7 +1458,7 @@ Objet Drv(Objet a)
 
     char buf[MAX_EXPR], descrCp[MAX_EXPR];
     Objet *upl, obj1, obj2, cp1, cp2, cp3, cp4, result;
-    sprintf(buf, "drv(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "drv(%s)", Descr(a));
 
     if ( a.type != UPLET || TailleUplet(a) != 2 )
         return ErreurExt("Fonction derivee : hors domaine", buf);
@@ -1472,9 +1472,9 @@ Objet Drv(Objet a)
     if (upl[1].type != COMPLEXE || !EstNul(Im(upl[1])))
         return ErreurExt("Fonction derivee : parametre 2 hors domaine", buf);
 
-    sprintf(descrCp, "(%s)+10^-7", Descr(upl[1]));
+    snprintf(descrCp, MAX_EXPR-1, "(%s)+10^-7", Descr(upl[1]));
     cp1 = CreerComplexe(Re(upl[1]) + 10e-7, 0, NULL, descrCp);
-    sprintf(descrCp, "(%s)-10^-7", Descr(upl[1]));
+    snprintf(descrCp, MAX_EXPR-1, "(%s)-10^-7", Descr(upl[1]));
     cp2 = CreerComplexe(Re(upl[1]) - 10e-7, 0, NULL, descrCp);
 
     obj1 = EvalFn(upl[0], cp1);
@@ -1508,7 +1508,7 @@ Objet Integ(Objet a)
     Objet *upl, obj1, obj2, cp;
     int nbSteps = 5000, i;
     double step, reInteg, imInteg, x;
-    sprintf(buf, "integ(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "integ(%s)", Descr(a));
 
     if ( a.type != UPLET || TailleUplet(a) != 3 )
         return ErreurExt("Fonction integrale : hors domaine", buf);
@@ -1572,7 +1572,7 @@ Objet Zero(Objet o)
     Objet *upl, obj1, obj2, obj3, cp;
     int nbSteps = 1000, i, done=0;
     double a, b, x1, x2, x3, precision, precisionMin, step;
-    sprintf(buf, "zero(%s)", Descr(o));
+    snprintf(buf, MAX_EXPR-1, "zero(%s)", Descr(o));
 
     if ( o.type != UPLET || TailleUplet(o) != 3 )
         return ErreurExt("Fonction zero : hors domaine", buf);
@@ -1714,7 +1714,7 @@ Objet RePart(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "re(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "re(%s)", Descr(a));
 
     if (a.type != COMPLEXE)
         return ErreurExt("Impossible d'extraire la partie reelle d'un objet non complexe", buf);
@@ -1729,7 +1729,7 @@ Objet ImPart(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "im(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "im(%s)", Descr(a));
 
     if (a.type != COMPLEXE)
         return ErreurExt("Impossible d'extraire la partie imaginaire d'un objet non complexe", buf);
@@ -1744,7 +1744,7 @@ Objet ArgCp(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "arg(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "arg(%s)", Descr(a));
 
     if (a.type != COMPLEXE)
         return ErreurExt("Argument : hors domaine", buf);
@@ -1759,7 +1759,7 @@ Objet ModCp(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "mod(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "mod(%s)", Descr(a));
 
     if (a.type != COMPLEXE)
         return ErreurExt("Module : hors domaine", buf);

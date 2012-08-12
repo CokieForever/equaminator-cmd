@@ -4,7 +4,7 @@
 *** INFORMATIONS GENERALES ***
 
 Auteur : Cokie
-Version : 1.0 bêta
+Version : 1.0.1 bêta
 Dernière mise à jour : 11/08/2012
 Plateformes : Windows, théoriquement Linux, Mac (non testé)
 License : GNU GPL v2.0 (voir le fichier LICENSE.txt pour plus d'informations)

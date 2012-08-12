@@ -72,7 +72,7 @@ Objet Add(Objet a, Objet b)
 {
     char buf[MAX_EXPR];
 
-    sprintf(buf, "(%s)+(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)+(%s)", Descr(a), Descr(b));
 
     if (a.type == ERREUR)
         return CopierObjet(a);
@@ -121,7 +121,7 @@ Objet AddFonctions(Objet a, Objet b)
          c1[2] = "", c2[2] = "";
     int i;
 
-    sprintf(buf, "(%s)+(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)+(%s)", Descr(a), Descr(b));
 
     if (expr2)
         expr2 = malloc(sizeof(char)*(strlen(expr2)+1));
@@ -150,7 +150,7 @@ Objet AddFonctions(Objet a, Objet b)
         }
     }
 
-    sprintf(buf2, "((%s)+(%s))", expr1, expr2);
+    snprintf(buf2, MAX_EXPR-1, "((%s)+(%s))", expr1, expr2);
     free(expr2);
     return CreerFonction(NULL, buf2, var1, NULL, buf);
 }
@@ -188,8 +188,8 @@ Objet AddSuites(Objet a, Objet b)
     if (var1[0] != var2[0])
         RemplacerVar(expr2, var2, var1);
 
-    sprintf(buf, "(%s)+(%s)", expr1, expr2);
-    sprintf(buf2, "(%s)+(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)+(%s)", expr1, expr2);
+    snprintf(buf2, MAX_EXPR-1, "(%s)+(%s)", Descr(a), Descr(b));
 
     if (IndSuite(b)>indice)
         indice = IndSuite(b);
@@ -248,7 +248,7 @@ Objet AddMatrices(Objet a, Objet b)
         }
     }
 
-    sprintf(buf, "(%s)+(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)+(%s)", Descr(a), Descr(b));
     return CreerObjet(MATRICE, NULL, buf, &matR, sizeof(Matrice));
 }
 
@@ -293,7 +293,7 @@ Objet AddUplets(Objet a, Objet b)
         }
     }
 
-    sprintf(buf, "(%s)+(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)+(%s)", Descr(a), Descr(b));
     return CreerObjet(UPLET, NULL, buf, &uplR, sizeof(Uplet));
 }
 
@@ -303,7 +303,7 @@ Objet Opp(Objet a, Objet b)
 {
     char buf[MAX_EXPR];
 
-    sprintf(buf, "-(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "-(%s)", Descr(a));
     b = a; // Evite un warning sur "unused parameter"
 
     if (a.type == ERREUR)
@@ -339,8 +339,8 @@ Objet OppFonction(Objet a)
     char buf[MAX_EXPR],
          buf2[MAX_EXPR];
 
-    sprintf(buf, "-(%s)", ExprFn(a));
-    sprintf(buf2, "-(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "-(%s)", ExprFn(a));
+    snprintf(buf2, MAX_EXPR-1, "-(%s)", Descr(a));
     return CreerFonction(NULL, buf, VarFn(a), NULL, buf2);
 }
 
@@ -356,8 +356,8 @@ Objet OppSuite(Objet a)
          buf2[MAX_EXPR];
     Objet obj, obj2;
 
-    sprintf(buf, "-(%s)", ExprSuite(a));
-    sprintf(buf2, "-(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "-(%s)", ExprSuite(a));
+    snprintf(buf2, MAX_EXPR-1, "-(%s)", Descr(a));
     obj = Opp(TermeSuite(a), TermeSuite(a));
     if (obj.type == ERREUR)
         return obj;
@@ -402,7 +402,7 @@ Objet OppMatrice(Objet a)
         }
     }
 
-    sprintf(buf, "-(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "-(%s)", Descr(a));
     return CreerObjet(MATRICE, NULL, buf, &mat2, sizeof(Matrice));
 }
 
@@ -434,7 +434,7 @@ Objet OppUplet(Objet a)
         }
     }
 
-    sprintf(buf, "-(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "-(%s)", Descr(a));
     return CreerObjet(UPLET, NULL, buf, &upl2, sizeof(Uplet));
 }
 
@@ -455,7 +455,7 @@ Objet Mult(Objet a, Objet b)
 {
     char buf[MAX_EXPR];
 
-    sprintf(buf, "(%s)*(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)*(%s)", Descr(a), Descr(b));
 
     if (a.type == ERREUR)
         return CopierObjet(a);
@@ -526,7 +526,7 @@ Objet ScalMult(Objet a, Objet b)
             break;
     }
 
-    sprintf(buf, "(%s)*(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)*(%s)", Descr(a), Descr(b));
     return ErreurExt("Impossible de multiplier (scalaire) : Type non adapte", buf);
 }
 
@@ -564,8 +564,8 @@ Objet MultSuites(Objet a, Objet b)
     if (var1[0] != var2[0])
         RemplacerVar(expr2, var2, var1);
 
-    sprintf(buf, "(%s)*(%s)", expr1, expr2);
-    sprintf(buf2, "(%s)*(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)*(%s)", expr1, expr2);
+    snprintf(buf2, MAX_EXPR-1, "(%s)*(%s)", Descr(a), Descr(b));
 
     if (IndSuite(b)>indice)
         indice = IndSuite(b);
@@ -631,7 +631,7 @@ Objet MultMatrices(Objet a, Objet b)
         }
     }
 
-    sprintf(buf, "(%s)*(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)*(%s)", Descr(a), Descr(b));
     return CreerObjet(MATRICE, NULL, buf, &matR, sizeof(Matrice));
 }
 
@@ -661,16 +661,16 @@ Objet ScalMultFonction(Objet a, Objet b)
         return ErreurInt("Objet incorrect");
 
     if (a.nom[0])
-        sprintf(buf, "%s#(%s)", a.nom, expr);
+        snprintf(buf, MAX_EXPR-1, "%s#(%s)", a.nom, expr);
     else if (Descr(a))
-        sprintf(buf, "(%s)#(%s)", Descr(a), expr);
+        snprintf(buf, MAX_EXPR-1, "(%s)#(%s)", Descr(a), expr);
     else
     {
         SprintComplexe(descrCp, a);
-        sprintf(buf, "(%s)#(%s)", descrCp, expr);
+        snprintf(buf, MAX_EXPR-1, "(%s)#(%s)", descrCp, expr);
     }
 
-    sprintf(buf2, "(%s)*(%s)", Descr(a), Descr(b));
+    snprintf(buf2, MAX_EXPR-1, "(%s)*(%s)", Descr(a), Descr(b));
 
     return CreerFonction(NULL, buf, VarFn(b), NULL, buf2);
 }
@@ -705,16 +705,16 @@ Objet ScalMultSuite(Objet a, Objet b)
         return terme;
 
     if (a.nom[0])
-        sprintf(buf, "%s#(%s)", a.nom, expr);
+        snprintf(buf, MAX_EXPR-1, "%s#(%s)", a.nom, expr);
     else if (Descr(a))
-        sprintf(buf, "(%s)#(%s)", Descr(a), expr);
+        snprintf(buf, MAX_EXPR-1, "(%s)#(%s)", Descr(a), expr);
     else
     {
         SprintComplexe(descrCp, a);
-        sprintf(buf, "(%s)#(%s)", descrCp, expr);
+        snprintf(buf, MAX_EXPR-1, "(%s)#(%s)", descrCp, expr);
     }
 
-    sprintf(buf2, "(%s)*(%s)", Descr(a), Descr(b));
+    snprintf(buf2, MAX_EXPR-1, "(%s)*(%s)", Descr(a), Descr(b));
 
     obj = CreerSuite(NULL, terme, IndSuite(b), expr, VarSuite(b), NULL, buf2);
     LibererObjet(&terme);
@@ -767,7 +767,7 @@ Objet ScalMultMatrice(Objet a, Objet b)
         }
     }
 
-    sprintf(buf, "(%s)*(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)*(%s)", Descr(a), Descr(b));
 
     return CreerObjet(MATRICE, NULL, buf, &mat2, sizeof(Matrice));
 }
@@ -813,7 +813,7 @@ Objet ScalMultUplet(Objet a, Objet b)
         }
     }
 
-    sprintf(buf, "(%s)*(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)*(%s)", Descr(a), Descr(b));
 
     return CreerObjet(UPLET, NULL, buf, &upl2, sizeof(Uplet));
 }
@@ -826,7 +826,7 @@ Objet Inv(Objet a, Objet b)
 {
     char buf[MAX_EXPR];
 
-    sprintf(buf, "/(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "/(%s)", Descr(a));
     b = a; // Evite un warning sur "unused parameter"
 
     if (a.type == ERREUR)
@@ -867,8 +867,8 @@ Objet InvSuite(Objet a)
          buf2[MAX_EXPR];
     Objet obj, obj2;
 
-    sprintf(buf, "/(%s)", ExprSuite(a));
-    sprintf(buf2, "/(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "/(%s)", ExprSuite(a));
+    snprintf(buf2, MAX_EXPR-1, "/(%s)", Descr(a));
     obj = Inv(TermeSuite(a), TermeSuite(a));
     if (obj.type == ERREUR)
         return obj;
@@ -893,7 +893,7 @@ Objet InvMatrice(Objet a)
     double re, im;
     char buf[MAX_EXPR];
 
-    sprintf(buf, "/(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "/(%s)", Descr(a));
 
     if (!mat3)
         return ErreurInt("Objet incorrect");
@@ -1075,7 +1075,7 @@ Objet Div(Objet a, Objet b)
     }
 
     char buf[MAX_EXPR];
-    sprintf(buf, "(%s)/(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)/(%s)", Descr(a), Descr(b));
     return ErreurExt("Impossible de diviser des matrices", buf);
 }
 
@@ -1091,7 +1091,7 @@ Objet Puiss(Objet a, Objet b)
     Objet obj, obj2;
     char buf[MAX_EXPR];
     int i;
-    sprintf(buf, "(%s)^(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)^(%s)", Descr(a), Descr(b));
 
     switch (a.type)
     {
@@ -1145,7 +1145,7 @@ Objet Compo(Objet a, Objet b)
     char buf[MAX_EXPR],
          expr1[MAX_EXPR], expr2[MAX_EXPR],
          *var1, *var2;
-    sprintf(buf, "(%s)@(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)@(%s)", Descr(a), Descr(b));
 
     if (a.type != FONCTION || b.type != FONCTION)
         return ErreurExt("Impossible de composer des objets autre que des fonctions", buf);
@@ -1157,7 +1157,7 @@ Objet Compo(Objet a, Objet b)
     if (var1[1])
         return ErreurExt("Impossible de composer : Nombre de parametres incompatible", buf);
 
-    sprintf(expr2, "(%s)", ExprFn(b));
+    snprintf(expr2, MAX_EXPR-1, "(%s)", ExprFn(b));
     strcpy(expr1, ExprFn(a));
     RemplacerVar(expr1, var1, expr2);
 
@@ -1176,7 +1176,7 @@ Objet Fact(Objet a, Objet b)
     double r = 1;
     int i;
 
-    sprintf(buf, "(%s)!", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "(%s)!", Descr(a));
 
     if (a.type != COMPLEXE || !EstNul(Im(a)) || !EstEntier(Re(a)) || Re(a)<0)
         return ErreurExt("Impossible de calculer la factorielle", buf);
@@ -1197,7 +1197,7 @@ Objet OuEx(Objet a, Objet b)
         return CopierObjet(b);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "(%s)%c(%s)", Descr(a), 15, Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)%c(%s)", Descr(a), 15, Descr(b));
 
     if (a.type != b.type)
         return ErreurExt("Impossible d'effectuer un OU exclusif : type incompatibles", buf);
@@ -1226,7 +1226,7 @@ Objet Et(Objet a, Objet b)
         return CopierObjet(b);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "(%s)&(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)&(%s)", Descr(a), Descr(b));
 
     if (a.type != b.type)
         return ErreurExt("Impossible d'effectuer un ET : type incompatibles", buf);
@@ -1255,7 +1255,7 @@ Objet Ou(Objet a, Objet b)
         return CopierObjet(b);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "(%s)|(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)|(%s)", Descr(a), Descr(b));
 
     if (a.type != b.type)
         return ErreurExt("Impossible d'effectuer un OU : Types incompatibles", buf);
@@ -1284,7 +1284,7 @@ Objet Neg(Objet a, Objet b)
     b = a; // Evite un warning sur "unused parameter"
 
     char buf[MAX_EXPR];
-    sprintf(buf, "~(%s)", Descr(a));
+    snprintf(buf, MAX_EXPR-1, "~(%s)", Descr(a));
 
     switch(a.type)
     {
@@ -1311,7 +1311,7 @@ Objet OpCentralComp(Objet a, Objet b, int(*fonction)(double,double), const char 
         return CopierObjet(b);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "(%s)%s(%s)", Descr(a), operateur, Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)%s(%s)", Descr(a), operateur, Descr(b));
 
     if (a.type != COMPLEXE || b.type != COMPLEXE || !EstNul(Im(a)) || !EstNul(Im(b)))
         return ErreurExt("Impossible de comparer : objets non reels", buf);
@@ -1368,7 +1368,7 @@ Objet Egal(Objet a, Objet b)
         return CopierObjet(b);
 
     char buf[MAX_EXPR];
-    sprintf(buf, "(%s)==(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)==(%s)", Descr(a), Descr(b));
 
     if (a.type != b.type)
         return ErreurExt("Impossible de comparer : type incompatibles", buf);
@@ -1406,7 +1406,7 @@ Objet EgalMatrice(Objet a, Objet b)
     int egal=1;
     char buf[MAX_EXPR];
 
-    sprintf(buf, "(%s)==(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)==(%s)", Descr(a), Descr(b));
 
     if (!mat1 || !mat2)
         return ErreurInt("Objet incorrect");
@@ -1443,7 +1443,7 @@ Objet EgalUplet(Objet a, Objet b)
     int egal=1;
     char buf[MAX_EXPR];
 
-    sprintf(buf, "(%s)==(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)==(%s)", Descr(a), Descr(b));
 
     if (!upl1 || !upl2)
         return ErreurInt("Objet incorrect");
@@ -1473,7 +1473,7 @@ Objet Diff(Objet a, Objet b)
     else egal = ValBool(r);
 
     LibererObjet(&r);
-    sprintf(buf, "(%s)~=(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s)~=(%s)", Descr(a), Descr(b));
     return CreerBooleen(egal ? FAUX : VRAI, NULL, buf);
 }
 
@@ -1499,7 +1499,7 @@ Objet Eval(Objet a, Objet b)
             break;
     }
 
-    sprintf(buf, "(%s):(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s):(%s)", Descr(a), Descr(b));
     return ErreurExt("Impossible d'evaluer autre chose que des fonctions / matrices / uplets", buf);
 }
 
@@ -1517,7 +1517,7 @@ Objet EvalFn(Objet a, Objet b)
     char buf[MAX_EXPR];
     int i;
 
-    sprintf(buf, "(%s):(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s):(%s)", Descr(a), Descr(b));
 
     fn = (Fonction*)(a.data);
     if (fn->fonction)
@@ -1575,7 +1575,7 @@ Objet EvalMat(Objet a, Objet b)
     char buf[MAX_EXPR];
     int c,l;
 
-    sprintf(buf, "(%s):(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s):(%s)", Descr(a), Descr(b));
 
     if (b.type != UPLET || TailleUplet(b) != 2)
         return ErreurExt("Format incorrect pour l'extraction d'elements", buf);
@@ -1603,7 +1603,7 @@ Objet EvalUplet(Objet a, Objet b)
     char buf[MAX_EXPR];
     int i;
 
-    sprintf(buf, "(%s):(%s)", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "(%s):(%s)", Descr(a), Descr(b));
 
     if (b.type != COMPLEXE)
         return ErreurExt("Format incorrect pour l'extraction d'elements", buf);
@@ -1625,7 +1625,7 @@ Objet Fonc(Objet a, Objet b)
 
     char buffer[MAX_EXPR];
 
-    sprintf(buffer, "%s->%s", TexteObj(a), TexteObj(b));
+    snprintf(buffer, MAX_EXPR-1, "%s->%s", TexteObj(a), TexteObj(b));
     return RecupererFonction(buffer, tabLocVar_op);
 }
 
@@ -1644,7 +1644,7 @@ Objet NewVar(Objet a, Objet b)
     int r = VerifNomVar(nom);
     Objet obj;
 
-    sprintf(buf, "%s=%s", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "%s=%s", Descr(a), Descr(b));
 
     if (!r)
         return ErreurExt("Nom de variable trop long", buf);
@@ -1692,7 +1692,7 @@ Objet NewCst(Objet a, Objet b)
           *vars = RecupTabObj(),
           *locVar;
 
-    sprintf(buf, "%s:=%s", Descr(a), Descr(b));
+    snprintf(buf, MAX_EXPR-1, "%s:=%s", Descr(a), Descr(b));
 
     if (!r)
         return ErreurExt("Nom de variable trop long", Descr(a));
@@ -1852,8 +1852,8 @@ int RemplacerVar(char expr[], const char avar[], const char nvar[])
             strcpy(expr2, expr+j+1);
 
             if (nvar)
-                sprintf(expr, "%s%s%s", expr1, nvar, expr2);
-            else sprintf(expr, "%s%s", expr1, expr2);
+                snprintf(expr, MAX_EXPR-1, "%s%s%s", expr1, nvar, expr2);
+            else snprintf(expr, MAX_EXPR-1, "%s%s", expr1, expr2);
 
             p += l2;
         }
