@@ -15,4 +15,5 @@ Released v1.0.1
 13/08/2012
 
 Correction de warnings : plus de warnings en mode C99 (-std=c99) et les options de compilation suivantes : -Wall -Wextra -pedantic -Wmain -Wunreachable-code -Wwrite-strings -Wstrict-prototypes
+Correction de l'affichage des nombres entiers négatifs.
 Released v1.0.2

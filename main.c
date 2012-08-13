@@ -824,7 +824,7 @@ void SprintFloat(char buf[], double num)
         i--;
     n2[i+1] = '\0';
 
-    if (num>=0 || (!n2[0] && f>-1))
+    if (num>=0 || (!n2[0] && f<1))
         snprintf(n1, MAX_EXPR-1, "%d", f);
     else snprintf(n1, MAX_EXPR-1, "-%d", (int)f);
     //n1[PRECISION+2] = '\0';
