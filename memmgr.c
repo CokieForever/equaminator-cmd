@@ -67,7 +67,7 @@ void MEMMGR_free(void* p, int print, unsigned int numLine, const char fileName[]
     {
         while ( (pChar = strchr(fileName, '\\')) )
             fileName = pChar+1;
-        printf("\nMEMMGR : Warning : (%s ; %d) tried to free non allocated memory at adress 0x%x\n", fileName, numLine, (unsigned int)p);
+        printf("\nMEMMGR: Warning: (%s ; %d) tried to free non allocated memory at adress 0x%x\n", fileName, numLine, (unsigned int)p);
     }
 }
 
@@ -79,7 +79,7 @@ void MEMMGR_freeEverything(int print, int wait)
     if (!nbMemZones)
     {
         if (print)
-            printf("MEMMGR : No remaining allocated memory found, good job!\n");
+            printf("MEMMGR: No remaining allocated memory found, good job!\n");
     }
     else
     {
@@ -87,7 +87,7 @@ void MEMMGR_freeEverything(int print, int wait)
         {
             free(zoneBegin(tabMemZones[i]));
             if (print)
-                printf("MEMMGR : Freed %d bytes allocated by (%s ; %d).\n", zoneSize(tabMemZones[i]), zoneFileName(tabMemZones[i]), zoneNumLine(tabMemZones[i]));
+                printf("MEMMGR: Freed %d bytes allocated by (%s ; %d).\n", zoneSize(tabMemZones[i]), zoneFileName(tabMemZones[i]), zoneNumLine(tabMemZones[i]));
         }
 
         if (tabMemZones)

@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "commandes.h"
 #endif
 
+int ChargerParam(void);
 int Executer(const char instruction[]);
 Objet Calculer(const char expr[], Objet locVar[]);
 int Preparer(char expr[]);

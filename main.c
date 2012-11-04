@@ -28,7 +28,7 @@ int main(void)
     int done = 0;
 
     printf(" -----------------\n| EQUAMINATOR CMD |\n -----------------\n\n");
-    printf("Auteur :\tCokie\nVersion :\t1.0.2 beta\nMise a jour :\t11/08/2012\n");
+    printf("Auteur :\tCokie\nVersion :\t1.0.3 beta\nMise a jour :\t04/11/2012\n");
     printf("License :\tGNU GPL version 2.0\n\t\thttp://www.gnu.org/licenses/gpl-2.0.html\n\n\n");
     printf("Initialisation... ");
 
@@ -36,7 +36,11 @@ int main(void)
     #ifndef MEMMGR
     atexit(Desinitialiser);
     #endif
-    printf("terminee.\nVeuillez entrer une commande ou un calcul :\n(Tapez help pour de l'aide !)\n\n> ");
+    printf("terminee.\n");
+
+    ChargerParam();
+
+    printf("Veuillez entrer une commande ou un calcul :\n(Tapez help pour de l'aide !)\n\n> ");
 
     while (!done)
     {
@@ -49,6 +53,40 @@ int main(void)
     FreeEverything();
     #endif
     return 0;
+}
+
+
+//Charge le fichier EquaCMD.ini et exécute les instruction contenues.
+int ChargerParam(void)
+{
+    FILE *fichierINI;
+    char c;
+    printf("Chargement des parametres... ");
+
+    if ( !(fichierINI = fopen("EquaCMD.ini", "r")) )
+    {
+        printf("Echec - fichier introuvable ou inaccessible.\n\n");
+        return -1;
+    }
+    else
+    {
+        while((c = fgetc(fichierINI)) == ' ' || c == '\n');
+        if (fgetc(fichierINI) == EOF)
+        {
+            fclose(fichierINI);
+            printf("Pas de parametre a charger.\n\n");
+            return 0;
+        }
+        else
+        {
+            fclose(fichierINI);
+            printf("\n\n");
+            Load("EquaCMD.ini");
+            printf("Chargement termine.\n\n\n");
+        }
+    }
+
+    return 1;
 }
 
 
