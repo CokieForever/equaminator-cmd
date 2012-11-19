@@ -28,7 +28,7 @@ int main(void)
     int done = 0;
 
     printf(" -----------------\n| EQUAMINATOR CMD |\n -----------------\n\n");
-    printf("Auteur :\tCokie\nVersion :\t1.0.3 beta\nMise a jour :\t04/11/2012\n");
+    printf("Auteur :\tCokie\nVersion :\t1.0.4 beta\nMise a jour :\t19/11/2012\n");
     printf("License :\tGNU GPL version 2.0\n\t\thttp://www.gnu.org/licenses/gpl-2.0.html\n\n\n");
     printf("Initialisation... ");
 
@@ -834,6 +834,19 @@ void SprintFloat(char buf[], double num)
     char n1[50], n2[50], *p;
     char string0[PRECISION+1], string9[PRECISION+1];
     int i, f = floor(fabs(num));
+
+    if (fabs(num) >= 1e9)
+    {
+        snprintf(buf, MAX_EXPR-1, "%.*e", PRECISION, num);
+        if ( (p = strchr(buf, 'e')) )
+        {
+            for (i = p-buf-1 ; i>=0 && buf[i]=='0' ; i--);
+            if (i>=0 && buf[i]=='.')
+                i--;
+            strcpy(buf+i+1, p);
+            return;
+        }
+    }
 
     for (i=0 ; i<PRECISION ; i++)
     {
