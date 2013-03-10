@@ -4,8 +4,8 @@
 *** INFORMATIONS GENERALES ***
 
 Auteur : Cokie
-Version : 1.0.2 bêta
-Dernière mise à jour : 11/08/2012
+Version : 1.0.5 bêta
+Dernière mise à jour : 10/03/2013
 Plateformes : Windows, théoriquement Linux, Mac (non testé)
 License : GNU GPL v2.0 (voir le fichier LICENSE.txt pour plus d'informations)
 Pour toute demande d'information, remarque, suggestion, etc., contactez-moi à l'adresse "cokie.forever@gmail.com".
