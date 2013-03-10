@@ -142,7 +142,7 @@ int PivotGauss(Objet a, unsigned int dim);
 size_t TailleDataObjet(Objet obj);
 int EnregistrerObjet(Objet obj);
 int OublierObjet(const char nom[]);
-void MAJTabObjets(void);
+int MAJTabObjets(void);
 
 
 Objet Exp(Objet a);

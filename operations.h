@@ -102,9 +102,10 @@ Objet InfStrict(Objet a, Objet b);
 Objet InfEgal(Objet a, Objet b);
 
 Objet Egal(Objet a, Objet b);
+Objet Egal2(Objet a, Objet b, int ghostErrors);
 Objet Diff(Objet a, Objet b);
-Objet EgalMatrice(Objet a, Objet b);
-Objet EgalUplet(Objet a, Objet b);
+Objet EgalMatrice(Objet a, Objet b, int ghostErrors);
+Objet EgalUplet(Objet a, Objet b, int ghostErrors);
 
 Objet Eval(Objet a, Objet b);
 Objet EvalFn(Objet a, Objet b);

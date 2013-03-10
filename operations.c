@@ -1362,9 +1362,13 @@ Objet InfEgal(Objet a, Objet b)
 
 Objet Egal(Objet a, Objet b)
 {
-    if (a.type == ERREUR)
+    return Egal2(a, b, 0);
+}
+Objet Egal2(Objet a, Objet b, int ghostErrors)
+{
+    if (a.type == ERREUR && !ghostErrors)
         return CopierObjet(a);
-    if (b.type == ERREUR)
+    if (b.type == ERREUR && !ghostErrors)
         return CopierObjet(b);
 
     char buf[MAX_EXPR];
@@ -1372,15 +1376,17 @@ Objet Egal(Objet a, Objet b)
 
     if (a.type != b.type)
         return ErreurExt("Impossible de comparer : type incompatibles", buf);
+    if (a.type == ERREUR && ghostErrors)
+        return CreerBooleen(VRAI, NULL, buf);
 
     switch(a.type)
     {
         case COMPLEXE:
             return CreerBooleen(EstNul(Re(a)-Re(b)) && EstNul(Im(a)-Im(b)) ? VRAI : FAUX, NULL, buf);
         case MATRICE:
-            return EgalMatrice(a, b);
+            return EgalMatrice(a, b, ghostErrors);
         case UPLET:
-            return EgalUplet(a, b);
+            return EgalUplet(a, b, ghostErrors);
         default:
             break;
     }
@@ -1389,7 +1395,7 @@ Objet Egal(Objet a, Objet b)
 
 }
 
-Objet EgalMatrice(Objet a, Objet b)
+Objet EgalMatrice(Objet a, Objet b, int ghostErrors)
 {
     if (a.type == ERREUR)
         return CopierObjet(a);
@@ -1418,7 +1424,7 @@ Objet EgalMatrice(Objet a, Objet b)
     {
         for (j=0 ; j<c && egal ; j++)
         {
-            r = Egal(mat1[i][j], mat2[i][j]);
+            r = Egal2(mat1[i][j], mat2[i][j], ghostErrors);
             if (r.type == ERREUR || !ValBool(r))
                 egal = 0;
             LibererObjet(&r);
@@ -1428,7 +1434,7 @@ Objet EgalMatrice(Objet a, Objet b)
     return CreerBooleen(egal ? VRAI : FAUX, NULL, buf);
 }
 
-Objet EgalUplet(Objet a, Objet b)
+Objet EgalUplet(Objet a, Objet b, int ghostErrors)
 {
     if (a.type == ERREUR)
         return CopierObjet(a);
@@ -1453,7 +1459,7 @@ Objet EgalUplet(Objet a, Objet b)
 
     for (i=0 ; i<n && egal ; i++)
     {
-        r = Egal(upl1[i], upl2[i]);
+        r = Egal2(upl1[i], upl2[i], ghostErrors);
         if (r.type == ERREUR || !ValBool(r))
             egal = 0;
         LibererObjet(&r);
@@ -1629,7 +1635,7 @@ Objet Fonc(Objet a, Objet b)
     return RecupererFonction(buffer, tabLocVar_op);
 }
 
-//Créé un objet de type texte avec le texte de l'onbjet b et comme nom le texte de l'objet a, et l'enregistre dans la liste générale des objets
+//Créé un objet de type texte avec le texte de l'objet b et comme nom le texte de l'objet a, et l'enregistre dans la liste générale des objets
 Objet NewVar(Objet a, Objet b)
 {
     if (a.type == ERREUR)
@@ -1653,10 +1659,14 @@ Objet NewVar(Objet a, Objet b)
 
     obj = CreerObjetTexte(TexteObj(a), TexteObj(b));
 
-    if (!(r = EnregistrerObjet(obj)))
+    if ((r = EnregistrerObjet(obj)) <= 0)
+        LibererObjet(&obj);
+    if (!r)
         return ErreurExt("Plus de place pour enregistrer l'objet", buf);
+    else if (r == -1)
+        return ErreurExt("Le nom specifie est celui d'un objet systeme", Descr(a));
     else if (r < 0)
-        return ErreurExt("Nom de variable deja utilise", buf);
+        return ErreurExt("Erreur de recursivite", buf);
 
     if (obj.data && TexteEstim(obj).type == ERREUR)
     {
@@ -1725,10 +1735,14 @@ Objet NewCst(Objet a, Objet b)
         LibererObjet(&(locVar[i]));
     free(locVar);
 
-    if (!(r = EnregistrerObjet(obj2)))
+    if ((r = EnregistrerObjet(obj2)) <= 0)
+        LibererObjet(&obj2);
+    if (!r)
         return ErreurExt("Plus de place pour enregistrer l'objet", buf);
-    else if (r < 0)
+    else if (r == -1)
         return ErreurExt("Le nom specifie est celui d'un objet systeme", Descr(a));
+    else if (r < 0)
+        return ErreurExt("Erreur de recursivite", buf);
 
     return obj2;
 }

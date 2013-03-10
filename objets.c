@@ -117,6 +117,7 @@ Objet* RecupTabObj(void)
 int EnregistrerObjet(Objet obj)
 {
     int i, done=0;
+    Objet oldObj;
 
     for (i=0 ; !done && i<MAX_OBJETS && tabObjets[i].type != VIDE ; i++)
     {
@@ -134,13 +135,24 @@ int EnregistrerObjet(Objet obj)
         if (i >= MAX_OBJETS)
             return 0;
     }
-    else LibererObjet(&(tabObjets[--i]));
+    else i--;
 
+    oldObj = tabObjets[i];
     tabObjets[i] = CopierObjet(obj);
     tabObjets[i].special = PERMANENT | USERVAR;
-    MAJTabObjets();
 
-    return 1;
+    if (MAJTabObjets())
+    {
+        LibererObjet(&oldObj);
+        return 1;
+    }
+    else
+    {
+        LibererObjet(&(tabObjets[i]));
+        tabObjets[i] = oldObj;
+        MAJTabObjets();
+        return -2;
+    }
 }
 
 //Permet d'effacer un objet du tableau des objets à partir de son nom, remet également à jour toutes les variables du tableau
@@ -160,19 +172,17 @@ int OublierObjet(const char nom[])
 }
 
 //Remet à jour toutes les variables du tableau
-void MAJTabObjets(void)
+int MAJTabObjets(void)
 {
-    int i;
-    Objet obj, oldObj;
+    int i, startAgain = 1, count;
+    Objet obj, oldObj, objBool;
 
-    for (i=0 ; i<MAX_OBJETS && tabObjets[i].type != VIDE ; i++)
+    for (count=0 ; count < 50 && startAgain ; count++)
     {
-        if (tabObjets[i].type == TEXTE)
+        startAgain = 0;
+        for (i=0 ; i<MAX_OBJETS && tabObjets[i].type != VIDE ; i++)
         {
-            if (!tabObjets[i].data)
-                tabObjets[i].data = malloc(sizeof(Objet));
-            else LibererObjet((Objet*)tabObjets[i].data);
-            if (tabObjets[i].data)
+            if (tabObjets[i].type == TEXTE)
             {
                 oldObj = tabObjets[i];
                 tabObjets[i] = ErreurExt("Variable inconnue dans l'expression", tabObjets[i].nom);
@@ -180,11 +190,27 @@ void MAJTabObjets(void)
                 obj = Calculer(TexteObj(oldObj), NULL);
                 LibererObjet(&(tabObjets[i]));
                 tabObjets[i] = oldObj;
-                memcpy(tabObjets[i].data, &obj, sizeof(Objet));
+
+                if (!tabObjets[i].data)
+                    tabObjets[i].data = malloc(sizeof(Objet));
+                else
+                {
+                    objBool = Egal2(TexteEstim(tabObjets[i]), obj, 1);
+                    if (objBool.type != BOOLEEN || !ValBool(objBool))
+                        startAgain = 1;
+                    LibererObjet(&objBool);
+                    LibererObjet((Objet*)tabObjets[i].data);
+                }
+
+                if (tabObjets[i].data)
+                    memcpy(tabObjets[i].data, &obj, sizeof(Objet));
+                else LibererObjet(&obj);
                 tabObjets[i].type = TEXTE;
             }
         }
     }
+
+    return !startAgain;
 }
 
 /*
