@@ -44,3 +44,7 @@ Certaines Commandes prennent un argument, parfois facultatif. L'argument se plac
 *** OBJECTIF ***
 
 Le programme n'a pas été créé pour la vitesse mais pour la réutilisabilité. En effet, il est aisé, si l'on dispose de connaissances suffisantes en langage C, de créer de nouveaux Opérateurs ou Objets ou de modifier ceux définis. C'est pourquoi, le logiciel est sous license GNU GPL, qui permet globalement la modification et la rediffusion libre.
+
+
+
+See http://ikturm.wordpress.com/projects-2/current-projects/equaminatorcmd/ for more information.
