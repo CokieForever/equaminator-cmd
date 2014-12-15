@@ -26,6 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "constantes.h"
 #endif
 
+#ifndef SVDLIB
+#include "svdlib.h"
+#define SVDLIBH
+#endif
+
 
 #define ERREUR    (-1)
 #define VIDE       0
@@ -143,6 +148,7 @@ size_t TailleDataObjet(Objet obj);
 int EnregistrerObjet(Objet obj);
 int OublierObjet(const char nom[]);
 int MAJTabObjets(void);
+int CheckMatConsistency(Objet **mat, int nc, int nl);
 
 
 Objet Exp(Objet a);
@@ -176,6 +182,9 @@ Objet RePart(Objet a);
 Objet ImPart(Objet a);
 Objet ArgCp(Objet a);
 Objet ModCp(Objet a);
+Objet Svd(Objet a);
+Objet Trace(Objet a);
+Objet Transposee(Objet a);
 
 
 //Macros pour accéder DIRECTEMENT aux données enregistrées dans un objet

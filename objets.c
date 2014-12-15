@@ -46,7 +46,7 @@ int InitialiserObjets(void)
     tabObjets[7] =  CreerFonction(Ath, "atanh:(x)", "x", "atanh", "Argtangente hyperbolique ]-1;1[");
     tabObjets[8] =  CreerFonction(Ceil, "ceil:(x)", "x", "ceil", "Entier directement superieur [Reels]");
     tabObjets[9] =  CreerFonction(Cos, "cos:(x)", "x", "cos", "Cosinus [Reels]");
-    tabObjets[10] =  CreerFonction(Cosh, "cosh:(x)", "x", "cosh", "Cosinus hyperbolique [Reels]");
+    tabObjets[10] = CreerFonction(Cosh, "cosh:(x)", "x", "cosh", "Cosinus hyperbolique [Reels]");
     tabObjets[11] = CreerFonction(Det, "det:(m)", "m", "det", "Determinant [Matrices carrees]");
     tabObjets[12] = CreerFonction(Drv, "drv:(f,x)", "fx", "drv", "Derivee de la fonction f estimee en x [Fonction x Complexe]");
     tabObjets[13] = CreerFonction(Exp, "exp:(z)", "z", "exp", "Fonction exponentielle [Complexes]");
@@ -63,12 +63,15 @@ int InitialiserObjets(void)
     tabObjets[24] = CreerFonction(Si, "si:(b,v,f)", "bvf", "si", "Condition : si b alors v sinon f [Booleen x Objet x Objet]");
     tabObjets[25] = CreerFonction(Sin, "sin:(x)", "x", "sin", "Sinus [Reels]");
     tabObjets[26] = CreerFonction(Sinh, "sinh:(x)", "x", "sinh", "Sinus hyperbolique [Reels]");
-    tabObjets[27] = CreerFonction(Sqrt, "sqrt:(x)", "x", "sqrt", "Racine carree [0;+I[");
-    tabObjets[28] = CreerFonction(Tan, "tan:(x)", "x", "tan", "Tangente [R \\ (Pi/2 + Pi.Z)]");
-    tabObjets[29] = CreerFonction(Tanh, "tanh:(x)", "x", "tanh", "Tangente hyperbolique [Reels]");
-    tabObjets[30] = CreerFonction(Zero, "zero:(f,a,b)", "fab", "zero", "Premier zero de la fonction f dans l'intervalle [a;b] [Fonction x Reel x Reel]");
+    tabObjets[27] = CreerFonction(Svd, "svd:(x)", "x", "svd", "Decomposition en Valeurs Singulieres [Matrices]");
+    tabObjets[28] = CreerFonction(Sqrt, "sqrt:(x)", "x", "sqrt", "Racine carree [0;+I[");
+    tabObjets[29] = CreerFonction(Tan, "tan:(x)", "x", "tan", "Tangente [R \\ (Pi/2 + Pi.Z)]");
+    tabObjets[30] = CreerFonction(Tanh, "tanh:(x)", "x", "tanh", "Tangente hyperbolique [Reels]");
+    tabObjets[31] = CreerFonction(Trace, "tr:(x)", "x", "tr", "Trace [Matrices]");
+    tabObjets[32] = CreerFonction(Transposee, "trsp:(x)", "x", "trsp", "Transposee [Matrices]");
+    tabObjets[33] = CreerFonction(Zero, "zero:(f,a,b)", "fab", "zero", "Premier zero de la fonction f dans l'intervalle [a;b] [Fonction x Reel x Reel]");
 
-    i=31;
+    i=34;
     tabObjets[i] = CreerComplexe(0, 1, "i", "Complexe (Re=0 ; Im=1)");
     tabObjets[i+1] = CreerComplexe(2.71828182845904523536028747135266249776, 0, "e", "Valeur prise par l'exponentielle en 1");
     tabObjets[i+2] = CreerComplexe(PI, 0, "pi", "Nombre pi");
@@ -726,6 +729,8 @@ Objet RecupererMatrice(const char expr[])
 
     if (expr[0] != '[' || expr[1] != '[' || !(p=StrchrEx(expr+1, ']')) || *(p+1) )
         return ErreurExt("Matrice : Syntaxe incorrecte", expr);
+    if (!mat.matrice)
+        return ErreurInt("Erreur d'allocation");
 
     buf = malloc(sizeof(char)*(strlen(expr)+1));
     if (!buf)
@@ -1380,7 +1385,7 @@ Objet Det(Objet a)
         return CopierObjet(a);
 
     char buf[MAX_EXPR];
-    unsigned int l, i, j;
+    unsigned int l, i;
     int r;
     Objet **mat, det, det2;
     snprintf(buf, MAX_EXPR-1, "det(%s)", Descr(a));
@@ -1390,14 +1395,8 @@ Objet Det(Objet a)
 
     if (!(mat = MatriceObj(a)))
         return ErreurInt("Objet incorrect");
-    for (i=0 ; i<l ; i++)
-    {
-        for (j=0 ; j<l ; j++)
-        {
-            if (mat[i][j].type != COMPLEXE)
-                return ErreurExt("Impossible de calculer le determinant d'une matrice contenant autre chose que des complexes", buf);
-        }
-    }
+    if (CheckMatConsistency(mat, l, l) != COMPLEXE)
+        return ErreurExt("Impossible de calculer le determinant d'une matrice contenant autre chose que des complexes", buf);
 
     if (!(r = PivotGauss(a, l)))
         return CreerComplexe(0, 0, NULL, buf);
@@ -1448,7 +1447,6 @@ int PivotGauss(Objet a, unsigned int dim)
         OpLigne(a, i, dim-1, Re(nb2), Im(nb2));
         LibererObjet(&nb2);
     }
-
 
     return exch ? -PivotGauss(a, dim-1) : PivotGauss(a, dim-1);
 }
@@ -1792,4 +1790,179 @@ Objet ModCp(Objet a)
         return ErreurExt("Module : hors domaine", buf);
 
     return CreerComplexe(Mod(a), 0, NULL, buf);
+}
+
+//SVD
+Objet Svd(Objet a)
+{
+    if (a.type == ERREUR)
+        return CopierObjet(a);
+
+    char buf[MAX_EXPR];
+    unsigned int nc, nl, i, j;
+    Objet **mat;
+    Matrice matU, matV, matS;
+    Uplet result;
+    snprintf(buf, MAX_EXPR-1, "svd(%s)", Descr(a));
+
+    if (a.type != MATRICE)
+        return ErreurExt("SVD : hors domaine", buf);
+
+    if (!(mat = MatriceObj(a)))
+        return ErreurInt("Objet incorrect");
+
+    nc = ColMat(a); nl = LignesMat(a);
+    if (CheckMatConsistency(mat, nc, nl) != COMPLEXE)
+        return ErreurExt("Impossible d'effectuer une SVD sur une matrice contenant autre chose que des complexes", buf);
+
+    DMat dmat = svdNewDMat(nl, nc);
+    if (!dmat)
+        return ErreurInt("Erreur d'allocation");
+    for (i=0 ; i < nl ; i++)
+    {
+        for (j=0 ; j < nc ; j++)
+            dmat->value[i][j] = Re(mat[i][j]);
+    }
+
+    SMat smat = svdConvertDtoS(dmat);
+    svdFreeDMat(dmat);
+    if (!smat)
+        return ErreurInt("Erreur de conversion");
+
+    SVDRec svdRec = svdLAS2A(smat, 0);
+    svdFreeSMat(smat);
+    if (!svdRec)
+        return ErreurInt("Erreur lors du calcul de la SVD");
+
+    matU = CreerMatrice(nl, nl);
+    if (!matU.matrice)
+    {
+        svdFreeSVDRec(svdRec);
+        return ErreurInt("Erreur d'allocation");
+    }
+    for (i=0 ; i < matU.lignes ; i++)
+    {
+        for (j=0 ; j < matU.col ; j++)
+            matU.matrice[i][j] = CreerComplexe(svdRec->Ut->value[j][i], 0, NULL, NULL);
+    }
+
+    matV = CreerMatrice(nc, nc);
+    if (!matV.matrice)
+    {
+        svdFreeSVDRec(svdRec);
+        LibererMatrice(matU);
+        return ErreurInt("Erreur d'allocation");
+    }
+    for (i=0 ; i < matV.lignes ; i++)
+    {
+        for (j=0 ; j < matV.col ; j++)
+            matV.matrice[i][j] = CreerComplexe(svdRec->Vt->value[j][i], 0, NULL, NULL);
+    }
+
+    matS = CreerMatrice(nl, nc);
+    if (!matS.matrice)
+    {
+        svdFreeSVDRec(svdRec);
+        LibererMatrice(matU); LibererMatrice(matV);
+        return ErreurInt("Erreur d'allocation");
+    }
+    for (i=0 ; i < matS.lignes ; i++)
+    {
+        for (j=0 ; j < matS.col ; j++)
+            matS.matrice[i][j] = CreerComplexe(i==j && i < (unsigned int)svdRec->d ? svdRec->S[i] : 0, 0, NULL, NULL);
+    }
+
+    svdFreeSVDRec(svdRec);
+
+    result = CreerUplet(3);
+    if (!result.uplet)
+        return ErreurInt("Erreur d'allocation");
+    result.uplet[0] = CreerObjet(MATRICE, NULL, NULL, &matU, sizeof(Matrice));
+    result.uplet[1] = CreerObjet(MATRICE, NULL, NULL, &matS, sizeof(Matrice));
+    result.uplet[2] = CreerObjet(MATRICE, NULL, NULL, &matV, sizeof(Matrice));
+
+    return CreerObjet(UPLET, NULL, NULL, &result, sizeof(Uplet));
+}
+
+Objet Trace(Objet a)
+{
+    if (a.type == ERREUR)
+        return CopierObjet(a);
+
+    char buf[MAX_EXPR];
+    unsigned int n, i;
+    Objet **mat, trace, trace2;
+    snprintf(buf, MAX_EXPR-1, "trace(%s)", Descr(a));
+
+    if (a.type != MATRICE)
+        return ErreurExt("Trace : hors domaine", buf);
+
+    if (!(mat = MatriceObj(a)))
+        return ErreurInt("Objet incorrect");
+
+    trace = CopierObjet(mat[0][0]);
+    n = ColMat(a) > LignesMat(a) ? LignesMat(a) : ColMat(a);
+    for (i=1 ; i < n ; i++)
+    {
+        trace2 = Add(trace, mat[i][i]);
+        LibererObjet(&trace);
+        trace = trace2;
+    }
+
+    if (trace.description)
+        free(trace.description);
+    trace.description = malloc(sizeof(char) * (strlen(buf)+1));
+    if (!trace.description)
+        return ErreurInt("Erreur d'allocation");
+    strcpy(trace.description, buf);
+
+    return trace;
+}
+
+Objet Transposee(Objet a)
+{
+    if (a.type == ERREUR)
+        return CopierObjet(a);
+
+    char buf[MAX_EXPR];
+    unsigned int nc, nl, i, j;
+    Objet **mat;
+    Matrice transp;
+    snprintf(buf, MAX_EXPR-1, "trace(%s)", Descr(a));
+
+    if (a.type != MATRICE)
+        return ErreurExt("Transposee : hors domaine", buf);
+
+    if (!(mat = MatriceObj(a)))
+        return ErreurInt("Objet incorrect");
+
+    nc = ColMat(a); nl = LignesMat(a);
+    transp = CreerMatrice(nc, nl);
+    if (!transp.matrice)
+        return ErreurInt("Erreur d'allocation");
+
+    for (i=0 ; i < nl ; i++)
+    {
+        for (j=0 ; j < nc ; j++)
+            transp.matrice[j][i] = CopierObjet(mat[i][j]);
+    }
+
+    return CreerObjet(MATRICE, NULL, buf, &transp, sizeof(Matrice));
+}
+
+int CheckMatConsistency(Objet **mat, int nc, int nl)
+{
+    int i, j;
+    int type = mat[0][0].type;
+
+    for (i=0 ; i<nl ; i++)
+    {
+        for (j=0 ; j<nc ; j++)
+        {
+            if (mat[i][j].type != type)
+                return -1;
+        }
+    }
+
+    return type;
 }

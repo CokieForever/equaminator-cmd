@@ -899,14 +899,8 @@ Objet InvMatrice(Objet a)
         return ErreurInt("Objet incorrect");
     if (c!=LignesMat(a))
         return ErreurExt("Impossible d'inverser une matrice non carree", buf);
-    for (i=0 ; i<c ; i++)
-    {
-        for (j=0 ; j<c ; j++)
-        {
-            if (mat3[i][j].type != COMPLEXE)
-                return ErreurExt("Impossible d'inverser une matrice contenant autre chose que des complexes", buf);
-        }
-    }
+    if (CheckMatConsistency(mat3, c, c) != COMPLEXE)
+        return ErreurExt("Impossible d'inverser une matrice contenant autre chose que des complexes", buf);
 
     mat2 = MatIdentite(c);
     if (mat2.type == ERREUR)
@@ -923,8 +917,7 @@ Objet InvMatrice(Objet a)
     m2 = MatriceObj(mat2);
     if (!m1 || !m2)
     {
-        LibererObjet(&mat1);
-        LibererObjet(&mat2);
+        LibererObjet(&mat1); LibererObjet(&mat2);
         return ErreurInt("Objet incorrect");
     }
 
@@ -932,7 +925,10 @@ Objet InvMatrice(Objet a)
     {
         for (j=i ; j<c && (EstNul(Re(m1[i][j])) && EstNul(Im(m1[i][j]))) ; j++);
         if (j>=c)
+        {
+            LibererObjet(&mat1); LibererObjet(&mat2);
             return ErreurExt("La matrice n'est pas inversible", buf);
+        }
 
         EchangerLignes(mat1, i, j);
         EchangerLignes(mat2, i, j);
