@@ -49,29 +49,30 @@ int InitialiserObjets(void)
     tabObjets[10] = CreerFonction(Cosh, "cosh:(x)", "x", "cosh", "Cosinus hyperbolique [Reels]");
     tabObjets[11] = CreerFonction(Det, "det:(m)", "m", "det", "Determinant [Matrices carrees]");
     tabObjets[12] = CreerFonction(Drv, "drv:(f,x)", "fx", "drv", "Derivee de la fonction f estimee en x [Fonction x Complexe]");
-    tabObjets[13] = CreerFonction(Exp, "exp:(z)", "z", "exp", "Fonction exponentielle [Complexes]");
-    tabObjets[14] = CreerFonction(Frac, "frac:(x)", "x", "frac", "Partie decimale [Reels]");
-    tabObjets[15] = CreerFonction(ImPart, "im:(z)", "z", "im", "Partie imaginaire [Complexes]");
-    tabObjets[16] = CreerFonction(Trunc, "int:(x)", "x", "int", "Troncature entiere [Reels]");
-    tabObjets[17] = CreerFonction(Integ, "integ:(f,a,b)", "fab", "integ", "Integrale de la fonction f entre a et b [Fonction x Reel x Reel]");
-    tabObjets[18] = CreerFonction(Floor, "intg:(x)", "x", "intg", "Partie entiere [Reels]");
-    tabObjets[19] = CreerFonction(Ln, "ln:(x)", "x", "ln", "Logarithme neperien ]0;+I[");
-    tabObjets[20] = CreerFonction(ModCp, "mod:(z)", "z", "mod", "Module [Complexes]");
-    tabObjets[21] = CreerFonction(Norme, "norm:(x)", "x", "norm", "Norme [Uplets de reels]");
-    tabObjets[22] = CreerFonction(RePart, "re:(z)", "z", "re", "Partie reelle [Complexes]");
-    tabObjets[23] = CreerFonction(Round, "rnd:(x)", "x", "rnd", "Arrondi a l'unite [Reels]");
-    tabObjets[24] = CreerFonction(Si, "si:(b,v,f)", "bvf", "si", "Condition : si b alors v sinon f [Booleen x Objet x Objet]");
-    tabObjets[25] = CreerFonction(Sin, "sin:(x)", "x", "sin", "Sinus [Reels]");
-    tabObjets[26] = CreerFonction(Sinh, "sinh:(x)", "x", "sinh", "Sinus hyperbolique [Reels]");
-    tabObjets[27] = CreerFonction(Svd, "svd:(x)", "x", "svd", "Decomposition en Valeurs Singulieres [Matrices]");
-    tabObjets[28] = CreerFonction(Sqrt, "sqrt:(x)", "x", "sqrt", "Racine carree [0;+I[");
-    tabObjets[29] = CreerFonction(Tan, "tan:(x)", "x", "tan", "Tangente [R \\ (Pi/2 + Pi.Z)]");
-    tabObjets[30] = CreerFonction(Tanh, "tanh:(x)", "x", "tanh", "Tangente hyperbolique [Reels]");
-    tabObjets[31] = CreerFonction(Trace, "tr:(x)", "x", "tr", "Trace [Matrices]");
-    tabObjets[32] = CreerFonction(Transposee, "trsp:(x)", "x", "trsp", "Transposee [Matrices]");
-    tabObjets[33] = CreerFonction(Zero, "zero:(f,a,b)", "fab", "zero", "Premier zero de la fonction f dans l'intervalle [a;b] [Fonction x Reel x Reel]");
+    tabObjets[13] = CreerFonction(EigenDec, "eig:(x)", "x", "eig", "Decomposition en Valeurs/Vecteurs Propres [Matrices]");
+    tabObjets[14] = CreerFonction(Exp, "exp:(z)", "z", "exp", "Fonction exponentielle [Complexes]");
+    tabObjets[15] = CreerFonction(Frac, "frac:(x)", "x", "frac", "Partie decimale [Reels]");
+    tabObjets[16] = CreerFonction(ImPart, "im:(z)", "z", "im", "Partie imaginaire [Complexes]");
+    tabObjets[17] = CreerFonction(Trunc, "int:(x)", "x", "int", "Troncature entiere [Reels]");
+    tabObjets[18] = CreerFonction(Integ, "integ:(f,a,b)", "fab", "integ", "Integrale de la fonction f entre a et b [Fonction x Reel x Reel]");
+    tabObjets[19] = CreerFonction(Floor, "intg:(x)", "x", "intg", "Partie entiere [Reels]");
+    tabObjets[20] = CreerFonction(Ln, "ln:(x)", "x", "ln", "Logarithme neperien ]0;+I[");
+    tabObjets[21] = CreerFonction(ModCp, "mod:(z)", "z", "mod", "Module [Complexes]");
+    tabObjets[22] = CreerFonction(Norme, "norm:(x)", "x", "norm", "Norme [Uplets de reels]");
+    tabObjets[23] = CreerFonction(RePart, "re:(z)", "z", "re", "Partie reelle [Complexes]");
+    tabObjets[24] = CreerFonction(Round, "rnd:(x)", "x", "rnd", "Arrondi a l'unite [Reels]");
+    tabObjets[25] = CreerFonction(Si, "si:(b,v,f)", "bvf", "si", "Condition : si b alors v sinon f [Booleen x Objet x Objet]");
+    tabObjets[26] = CreerFonction(Sin, "sin:(x)", "x", "sin", "Sinus [Reels]");
+    tabObjets[27] = CreerFonction(Sinh, "sinh:(x)", "x", "sinh", "Sinus hyperbolique [Reels]");
+    tabObjets[28] = CreerFonction(Svd, "svd:(x)", "x", "svd", "Decomposition en Valeurs Singulieres [Matrices]");
+    tabObjets[29] = CreerFonction(Sqrt, "sqrt:(x)", "x", "sqrt", "Racine carree [0;+I[");
+    tabObjets[30] = CreerFonction(Tan, "tan:(x)", "x", "tan", "Tangente [R \\ (Pi/2 + Pi.Z)]");
+    tabObjets[31] = CreerFonction(Tanh, "tanh:(x)", "x", "tanh", "Tangente hyperbolique [Reels]");
+    tabObjets[32] = CreerFonction(Trace, "tr:(x)", "x", "tr", "Trace [Matrices]");
+    tabObjets[33] = CreerFonction(Transposee, "trsp:(x)", "x", "trsp", "Transposee [Matrices]");
+    tabObjets[34] = CreerFonction(Zero, "zero:(f,a,b)", "fab", "zero", "Premier zero de la fonction f dans l'intervalle [a;b] [Fonction x Reel x Reel]");
 
-    i=34;
+    i=35;
     tabObjets[i] = CreerComplexe(0, 1, "i", "Complexe (Re=0 ; Im=1)");
     tabObjets[i+1] = CreerComplexe(2.71828182845904523536028747135266249776, 0, "e", "Valeur prise par l'exponentielle en 1");
     tabObjets[i+2] = CreerComplexe(PI, 0, "pi", "Nombre pi");
@@ -1881,7 +1882,7 @@ Objet Svd(Objet a)
     result.uplet[1] = CreerObjet(MATRICE, NULL, NULL, &matS, sizeof(Matrice));
     result.uplet[2] = CreerObjet(MATRICE, NULL, NULL, &matV, sizeof(Matrice));
 
-    return CreerObjet(UPLET, NULL, NULL, &result, sizeof(Uplet));
+    return CreerObjet(UPLET, NULL, buf, &result, sizeof(Uplet));
 }
 
 Objet Trace(Objet a)
@@ -1948,6 +1949,106 @@ Objet Transposee(Objet a)
     }
 
     return CreerObjet(MATRICE, NULL, buf, &transp, sizeof(Matrice));
+}
+
+Objet EigenDec(Objet a)
+{
+    if (a.type == ERREUR)
+        return CopierObjet(a);
+
+    char buf[MAX_EXPR];
+    unsigned int nl, i, j, k=0;
+    Objet **mat;
+    double *matrixData = NULL, *eigenVal = NULL, *eigenVec = NULL;
+    Matrice eigenValMat, eigenVecMat;
+    Uplet upl;
+    snprintf(buf, MAX_EXPR-1, "eig(%s)", Descr(a));
+
+    if (a.type != MATRICE)
+        return ErreurExt("EVD : hors domaine", buf);
+
+    if (!(mat = MatriceObj(a)))
+        return ErreurInt("Objet incorrect");
+
+    nl = LignesMat(a);
+    if (ColMat(a) != nl)
+        return ErreurExt("Impossible d'effectuer une EVD sur une matrice non carree", buf);
+
+    if (CheckMatConsistency(mat, nl, nl) != COMPLEXE)
+        return ErreurExt("Impossible d'effectuer une EVD sur une matrice contenant autre chose que des complexes", buf);
+
+    matrixData = malloc(sizeof(double) * nl *nl);
+    if (!matrixData)
+        return ErreurInt("Erreur d'allocation");
+    for (i=0 ; i < nl ; i++)
+    {
+        for (j=0 ; j <= i ; j++)
+        {
+            matrixData[k] = Re(mat[i][j]);
+            k++;
+        }
+        for (j=i+1 ; j < nl ; j++)
+        {
+            if (!EstNul(Re(mat[i][j]) - Re(mat[j][i])))
+                return ErreurExt("Impossible d'effectuer une EVD sur une matrice non symetrique", buf);
+            matrixData[k] = Re(mat[i][j]);
+            k++;
+        }
+    }
+
+    eigenVal = malloc(sizeof(double) * nl);
+    if (!eigenVal)
+    {
+        free(matrixData);
+        return ErreurInt("Erreur d'allocation");
+    }
+    eigenVec = malloc(sizeof(double) * nl * nl);
+    if (!eigenVec)
+    {
+        free(matrixData); free(eigenVal);
+        return ErreurInt("Erreur d'allocation");
+    }
+
+    rs(nl, matrixData, eigenVal, 1, eigenVec);
+    free(matrixData);
+
+    eigenValMat = CreerMatrice(nl, nl);
+    if (!eigenValMat.matrice)
+    {
+        free(eigenVal); free(eigenVec);
+        return ErreurInt("Erreur d'allocation");
+    }
+    eigenVecMat = CreerMatrice(nl, nl);
+    if (!eigenVecMat.matrice)
+    {
+        free(eigenVal); free(eigenVec);
+        LibererMatrice(eigenValMat);
+        return ErreurInt("Erreur d'allocation");
+    }
+    k = 0;
+    for (i=0 ; i < nl ; i++)
+    {
+        for (j=0 ; j < nl ; j++)
+        {
+            eigenValMat.matrice[i][j] = CreerComplexe(i==j ? eigenVal[i] : 0, 0, NULL, NULL);
+            eigenVecMat.matrice[j][i] = CreerComplexe(eigenVec[k], 0, NULL, NULL);
+            k++;
+        }
+    }
+
+    free(eigenVal);
+    free(eigenVec);
+
+    upl = CreerUplet(2);
+    if (!upl.uplet)
+    {
+        LibererMatrice(eigenVecMat); LibererMatrice(eigenValMat);
+        return ErreurInt("Erreur d'allocation");
+    }
+    upl.uplet[0] = CreerObjet(MATRICE, NULL, NULL, &eigenValMat, sizeof(Matrice));
+    upl.uplet[1] = CreerObjet(MATRICE, NULL, NULL, &eigenVecMat, sizeof(Matrice));
+
+    return CreerObjet(UPLET, NULL, buf, &upl, sizeof(Uplet));
 }
 
 int CheckMatConsistency(Objet **mat, int nc, int nl)

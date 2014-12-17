@@ -26,15 +26,18 @@
 			<Add option="-Wwrite-strings -Wstrict-prototypes -std=c99" />
 		</Compiler>
 		<Linker>
-			<Add library="libsvd.a" />
+			<Add library="svd" />
 			<Add library="Ws2_32" />
-			<Add directory="." />
+			<Add library="eispack" />
+			<Add directory="external-libs/eispack" />
+			<Add directory="external-libs/svdlibc/bin" />
 		</Linker>
 		<Unit filename="commandes.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="commandes.h" />
 		<Unit filename="constantes.h" />
+		<Unit filename="eispack.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

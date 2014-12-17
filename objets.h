@@ -26,10 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include "constantes.h"
 #endif
 
-#ifndef SVDLIB
 #include "svdlib.h"
-#define SVDLIBH
-#endif
+#include "eispack.h"
 
 
 #define ERREUR    (-1)
@@ -185,6 +183,7 @@ Objet ModCp(Objet a);
 Objet Svd(Objet a);
 Objet Trace(Objet a);
 Objet Transposee(Objet a);
+Objet EigenDec(Objet a);
 
 
 //Macros pour accéder DIRECTEMENT aux données enregistrées dans un objet
