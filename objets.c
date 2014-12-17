@@ -1990,7 +1990,10 @@ Objet EigenDec(Objet a)
         for (j=i+1 ; j < nl ; j++)
         {
             if (!EstNul(Re(mat[i][j]) - Re(mat[j][i])))
-                return ErreurExt("Impossible d'effectuer une EVD sur une matrice non symetrique", buf);
+            {
+			   free(matrixData);
+			   return ErreurExt("Impossible d'effectuer une EVD sur une matrice non symetrique", buf);
+			}
             matrixData[k] = Re(mat[i][j]);
             k++;
         }
